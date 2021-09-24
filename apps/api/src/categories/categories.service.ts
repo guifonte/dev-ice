@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './category.entity';
@@ -18,5 +18,14 @@ export class CategoriesService {
   create(createCategoryDTO: CreateCategoryDTO): Promise<Category> {
     const newCategory = this.categoriesRepository.create(createCategoryDTO);
     return this.categoriesRepository.save(newCategory);
+  }
+
+  async delete(id: number): Promise<void> {
+    const delResult = await this.categoriesRepository.delete(id);
+    if (delResult.affected === 0)
+      throw new HttpException(
+        'This category does not exist!',
+        HttpStatus.NO_CONTENT
+      );
   }
 }

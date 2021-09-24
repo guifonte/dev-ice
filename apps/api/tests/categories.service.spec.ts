@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import faker from 'faker';
 import { CategoriesService } from '../src/categories/categories.service';
 import { Category } from '../src/categories/category.entity';
-import { MockType, repositoryMockFactory } from './helpers/mock-repository';
+import { MockType, repositoryMockFactory, mockCategory } from './helpers';
 
 describe('CategoriesService', () => {
   let service: CategoriesService;
@@ -16,7 +15,6 @@ describe('CategoriesService', () => {
         CategoriesService,
         {
           provide: getRepositoryToken(Category),
-          // useValue: categoryRepositoryStub
           useFactory: repositoryMockFactory,
         },
       ],
@@ -38,10 +36,8 @@ describe('CategoriesService', () => {
     });
 
     it('should return a list with one category if it only has one category', async () => {
-      const category: Category = {
-        id: 1,
-        name: 'loremipsulum',
-      };
+      const category = mockCategory();
+
       repositoryMock.find.mockReturnValue([category]);
       expect(await service.findAll()).toEqual<Category[]>([category]);
       expect(repositoryMock.find).toBeCalledWith();
@@ -49,18 +45,9 @@ describe('CategoriesService', () => {
 
     it('should return a list with three categories if it has three categories', async () => {
       const categories: Category[] = [
-        {
-          id: 1,
-          name: 'loremipsulum',
-        },
-        {
-          id: 2,
-          name: 'loremipsulum',
-        },
-        {
-          id: 3,
-          name: 'loremipsulum',
-        },
+        mockCategory(),
+        mockCategory(),
+        mockCategory(),
       ];
 
       repositoryMock.find.mockReturnValue(categories);

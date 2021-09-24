@@ -1,0 +1,7 @@
+{
+  "*{.ts,.js}": [
+    "npx eslint --cache --fix",
+    "jest test --no-cache --run-in-band --find-related-tests "
+  ],
+  "*": ["nx format:write --files="]
+}

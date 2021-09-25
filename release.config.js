@@ -20,5 +20,4 @@ module.exports = {
     '@semantic-release/git',
   ],
   preset: 'angular',
-  dryRun: true,
 };

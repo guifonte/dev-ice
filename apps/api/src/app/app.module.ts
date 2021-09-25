@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 import { environment as env } from '../environments/environment';
 
 @Module({
@@ -19,7 +16,7 @@ import { environment as env } from '../environments/environment';
       autoLoadEntities: true,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -1,3 +1,11 @@
+# [1.0.0-beta.3](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-09-25)
+
+### Features
+
+- **api:** ensure CategoriesController delete resolves correctly ([0e24e01](https://github.com/guifonte/dev-ice/commit/0e24e01ded03773058a0a5e6a5fdbb713ef94ae7))
+- **api:** ensure CategoriesController findAll returns correctly values ([5e1b63a](https://github.com/guifonte/dev-ice/commit/5e1b63a3b4fdaca359d2a073624bf460e0cd3129))
+- **api:** ensure CategoriesController returns a Category when the service do so ([088ed5b](https://github.com/guifonte/dev-ice/commit/088ed5bbfae08f3ca36d67dd4d5ef1dd4c1f634e))
+
 # [1.0.0-beta.2](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-09-25)
 
 ### Bug Fixes

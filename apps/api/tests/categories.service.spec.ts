@@ -13,9 +13,11 @@ import {
   mockId,
 } from './helpers';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { Device } from '../src/devices/device.entity';
 describe('CategoriesService', () => {
   let service: CategoriesService;
   let repositoryMock: MockType<Repository<Category>>;
+  let devRepositoryMock: MockType<Repository<Device>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,11 +27,16 @@ describe('CategoriesService', () => {
           provide: getRepositoryToken(Category),
           useFactory: repositoryMockFactory,
         },
+        {
+          provide: getRepositoryToken(Device),
+          useFactory: repositoryMockFactory,
+        },
       ],
     }).compile();
 
     service = module.get<CategoriesService>(CategoriesService);
     repositoryMock = module.get(getRepositoryToken(Category));
+    devRepositoryMock = module.get(getRepositoryToken(Device));
   });
 
   it('should be defined', () => {
@@ -81,7 +88,7 @@ describe('CategoriesService', () => {
   });
   describe('delete', () => {
     it('should throw NO_CONTENT if category with id not found in the database', async () => {
-      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 0 });
+      repositoryMock.findOne.mockReturnValue(undefined);
       expect.assertions(2);
       try {
         await service.delete(mockId());
@@ -92,8 +99,23 @@ describe('CategoriesService', () => {
     });
 
     it('should do nothing on success', async () => {
-      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 1 });
+      repositoryMock.findOne.mockReturnValue(mockCategory());
+      devRepositoryMock.count.mockReturnValue(0);
       await service.delete(mockId());
+    });
+
+    it('should throw CONFLICT if is there any Device related with this category', async () => {
+      repositoryMock.findOne.mockReturnValue(mockCategory());
+      devRepositoryMock.count.mockReturnValue(1);
+      expect.assertions(3);
+
+      try {
+        await service.delete(mockId());
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.CONFLICT);
+        expect(repositoryMock.delete).toBeCalledTimes(0);
+      }
     });
   });
 });

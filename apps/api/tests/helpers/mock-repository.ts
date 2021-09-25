@@ -13,4 +13,5 @@ export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(()
   save: jest.fn(entity => ({id: mockId(), ...entity})),
   delete: jest.fn(),
   create: jest.fn(entity => entity),
+  count: jest.fn()
 }))

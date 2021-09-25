@@ -29,4 +29,13 @@ export class DevicesService {
     const partialDevice = this.devicesRepository.create(createDeviceDTO);
     return this.devicesRepository.save(partialDevice);
   }
+
+  async delete(id: number): Promise<void> {
+    const delResult = await this.devicesRepository.delete(id);
+    if (delResult.affected === 0)
+      throw new HttpException(
+        'This device does not exist!',
+        HttpStatus.NO_CONTENT
+      );
+  }
 }

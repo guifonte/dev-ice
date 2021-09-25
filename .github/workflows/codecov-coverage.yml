@@ -1,9 +1,7 @@
 name: Codecov Coverage
 on:
   push:
-    # branches: [main, beta, alpha]
-    braches:
-      - develop
+    branches: [main, beta, alpha]
 
 jobs:
   coverage:
@@ -32,5 +30,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: './coverage/'
-          verbose: true
-          dryRun: true

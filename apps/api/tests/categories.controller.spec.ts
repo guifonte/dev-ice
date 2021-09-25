@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import faker from 'faker';
 
 import { CategoriesController } from '../src/categories/categories.controller';
 import { CategoriesService } from '../src/categories/categories.service';
@@ -8,6 +7,8 @@ import { mockCategory, mockId, repositoryMockFactory } from './helpers';
 import { Category } from '../src/categories/category.entity';
 import { Device } from '../src/devices/device.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import faker from 'faker';
+import { CreateCategoryDTO } from '../src/categories/create-category.dto';
 
 describe('CategoriesController', () => {
   let controller: CategoriesController;
@@ -93,6 +94,18 @@ describe('CategoriesController', () => {
         expect(error).toHaveProperty('status', HttpStatus.CONFLICT);
         expect(service.delete).toHaveBeenCalledWith(mockedId);
       }
+    });
+  });
+
+  describe('create', () => {
+    it('should return a Category if service returns so', async () => {
+      const mockedCat = mockCategory();
+      const result = Promise.resolve<Category>(mockedCat);
+      jest.spyOn(service, 'create').mockImplementation(() => result);
+
+      const mockedDTO: CreateCategoryDTO = { name: faker.random.word() };
+      expect(await controller.create(mockedDTO)).toEqual(mockedCat);
+      expect(service.create).toHaveBeenCalledWith(mockedDTO);
     });
   });
 });

@@ -1,0 +1,34 @@
+name: Codecov Coverage
+on:
+  push:
+    # branches: [main, beta, alpha]
+    braches:
+      - develop
+
+jobs:
+  run:
+    name: Generate Coverage Report
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Generate Report
+        run: yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
+        ran: yarn jest --coverage
+
+      - name: Codecov Upload
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: './coverage/'
+          verbose: true
+          dryRun: true

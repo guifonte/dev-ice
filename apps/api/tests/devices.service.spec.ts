@@ -3,9 +3,16 @@ import { Repository } from 'typeorm';
 
 import { DevicesService } from '../src/devices/devices.service';
 import { Device } from '../src/devices/device.entity';
-import { MockType, repositoryMockFactory } from './helpers';
+import {
+  mockCategory,
+  mockId,
+  MockType,
+  repositoryMockFactory,
+} from './helpers';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockDevice } from './helpers/mock-device';
+import { CreateDeviceDTO } from '../src/devices/create-device.dto';
+import { mockCreateDeviceDTO } from './helpers/mock-create-device-dto';
 
 describe('DevicesService', () => {
   let service: DevicesService;
@@ -51,6 +58,33 @@ describe('DevicesService', () => {
       repositoryMock.find.mockReturnValue(devices);
       expect(await service.findAll()).toEqual<Device[]>(devices);
       expect(repositoryMock.find).toBeCalledWith();
+    });
+  });
+
+  describe('create', () => {
+    it('should return the Device object with same values as the DTO, but with id and category object complete', async () => {
+      const dto: CreateDeviceDTO = mockCreateDeviceDTO();
+      repositoryMock.save.mockReturnValue({
+        id: mockId(),
+        partNumber: dto.partNumber,
+        color: dto.color,
+        category: { ...mockCategory(), id: dto.categoryId },
+      });
+
+      const device = await service.create(dto);
+      expect(device).toEqual({
+        id: expect.any(Number),
+        partNumber: dto.partNumber,
+        color: dto.color,
+        category: {
+          id: dto.categoryId,
+          name: expect.any(String),
+        },
+      });
+      expect(device.id).toBeGreaterThan(0);
+      expect(Math.floor(device.id)).toBe(device.id);
+      expect(repositoryMock.create).toBeCalledWith(dto);
+      expect(repositoryMock.save).toBeCalledWith(dto);
     });
   });
 });

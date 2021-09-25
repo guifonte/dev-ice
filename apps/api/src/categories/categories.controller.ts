@@ -1,6 +1,15 @@
-import { Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { Category } from './category.entity';
+import { CreateCategoryDTO } from './create-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -14,5 +23,10 @@ export class CategoriesController {
   @Delete(':id')
   deleteOne(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.categoriesService.delete(id);
+  }
+
+  @Post()
+  create(@Body() createCategoryDTO: CreateCategoryDTO): Promise<Category> {
+    return this.categoriesService.create(createCategoryDTO);
   }
 }

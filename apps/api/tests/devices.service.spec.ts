@@ -13,10 +13,13 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockDevice } from './helpers/mock-device';
 import { CreateDeviceDTO } from '../src/devices/create-device.dto';
 import { mockCreateDeviceDTO } from './helpers/mock-create-device-dto';
+import { Category } from '../src/categories/category.entity';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('DevicesService', () => {
   let service: DevicesService;
   let repositoryMock: MockType<Repository<Device>>;
+  let catRepositoryMock: MockType<Repository<Category>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,11 +29,16 @@ describe('DevicesService', () => {
           provide: getRepositoryToken(Device),
           useFactory: repositoryMockFactory,
         },
+        {
+          provide: getRepositoryToken(Category),
+          useFactory: repositoryMockFactory,
+        },
       ],
     }).compile();
 
     service = module.get<DevicesService>(DevicesService);
     repositoryMock = module.get(getRepositoryToken(Device));
+    catRepositoryMock = module.get(getRepositoryToken(Category));
   });
 
   it('should be defined', () => {
@@ -64,13 +72,15 @@ describe('DevicesService', () => {
   describe('create', () => {
     it('should return the Device object with same values as the DTO, but with id and category object complete', async () => {
       const dto: CreateDeviceDTO = mockCreateDeviceDTO();
+      const category: Category = { ...mockCategory(), id: dto.categoryId };
       repositoryMock.save.mockReturnValue({
         id: mockId(),
         partNumber: dto.partNumber,
         color: dto.color,
-        category: { ...mockCategory(), id: dto.categoryId },
+        category,
       });
 
+      catRepositoryMock.findOne.mockReturnValue(category);
       const device = await service.create(dto);
       expect(device).toEqual({
         id: expect.any(Number),
@@ -85,6 +95,20 @@ describe('DevicesService', () => {
       expect(Math.floor(device.id)).toBe(device.id);
       expect(repositoryMock.create).toBeCalledWith(dto);
       expect(repositoryMock.save).toBeCalledWith(dto);
+    });
+    it('should throw BAD_REQUEST if category does not exist', async () => {
+      const dto: CreateDeviceDTO = mockCreateDeviceDTO();
+      catRepositoryMock.findOne.mockReturnValue(undefined);
+
+      expect.assertions(4);
+      try {
+        await service.create(dto);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.BAD_REQUEST);
+        expect(catRepositoryMock.findOne).toBeCalledWith(dto.categoryId);
+        expect(repositoryMock.save).toBeCalledTimes(0);
+      }
     });
   });
 });

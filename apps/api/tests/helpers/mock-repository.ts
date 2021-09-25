@@ -9,6 +9,7 @@ export type MockType<T> = {
 // prettier-ignore
 export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(() =>({ // eslint-disable-line @typescript-eslint/no-explicit-any
   find: jest.fn(),
+  findOne: jest.fn(),
   save: jest.fn(entity => ({id: mockId(), ...entity})),
   delete: jest.fn(),
   create: jest.fn(entity => entity),

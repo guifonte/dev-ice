@@ -1,3 +1,17 @@
+# [1.0.0-beta.2](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-09-25)
+
+### Bug Fixes
+
+- **all:** change job name ([25e356f](https://github.com/guifonte/dev-ice/commit/25e356f680ef9eb962803c940eb8dee9b6c61dc3))
+- **all:** fix run format to only one ([c0c26db](https://github.com/guifonte/dev-ice/commit/c0c26dbc89e554af4e4fd42edfd3158bca8206c7))
+- **all:** remove dash before uses ([17b96f9](https://github.com/guifonte/dev-ice/commit/17b96f959ff3ec9e138176f58ef38777a35562e8))
+- **api:** add istanbul ignore for coverage in many to one function of typeorm entities ([b3cbee0](https://github.com/guifonte/dev-ice/commit/b3cbee0c3c41a48b4df8a193bcd3e6d25ea8ccc7))
+
+### Features
+
+- **api:** generate CategoriesController and CategoriesModule ([419682f](https://github.com/guifonte/dev-ice/commit/419682f57f720e63a323c8477862558325844bdf))
+- **api:** prepare categories to testing and develop ([a8d43ff](https://github.com/guifonte/dev-ice/commit/a8d43ffd98400b97d42ef5b5b7f307dc579bde15))
+
 # 1.0.0-beta.1 (2021-09-25)
 
 ### Bug Fixes

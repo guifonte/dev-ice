@@ -111,4 +111,22 @@ describe('DevicesService', () => {
       }
     });
   });
+
+  describe('delete', () => {
+    it('should throw NO_CONTENT if device for the given id does not exists in the database', async () => {
+      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 0 });
+      expect.assertions(2);
+      try {
+        await service.delete(mockId());
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.NO_CONTENT);
+      }
+    });
+
+    it('should return nothing on success', async () => {
+      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 1 });
+      await service.delete(mockId());
+    });
+  });
 });

@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CategoriesModule } from '../categories/categories.module';
 
 import { environment as env } from '../environments/environment';
 
 @Module({
   imports: [
+    CategoriesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: env.RDS_HOSTNAME,

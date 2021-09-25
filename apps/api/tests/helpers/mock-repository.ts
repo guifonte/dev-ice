@@ -1,4 +1,5 @@
-import { Entity, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { mockId } from '.';
 
 // prettier-ignore
 export type MockType<T> = {
@@ -8,6 +9,7 @@ export type MockType<T> = {
 // prettier-ignore
 export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(() =>({ // eslint-disable-line @typescript-eslint/no-explicit-any
   find: jest.fn(),
-  save: jest.fn(entity => ({id: 1, ...entity})),
-  create: jest.fn(entity => entity)
+  save: jest.fn(entity => ({id: mockId(), ...entity})),
+  delete: jest.fn(),
+  create: jest.fn(entity => entity),
 }))

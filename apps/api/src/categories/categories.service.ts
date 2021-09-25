@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Device } from '../devices/device.entity';
 import { Category } from './category.entity';
 import { CreateCategoryDTO } from './create-category.dto';
 
@@ -8,7 +9,9 @@ import { CreateCategoryDTO } from './create-category.dto';
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
-    private categoriesRepository: Repository<Category>
+    private categoriesRepository: Repository<Category>,
+    @InjectRepository(Device)
+    private devicesRepository: Repository<Device>
   ) {}
 
   findAll(): Promise<Category[]> {
@@ -21,11 +24,20 @@ export class CategoriesService {
   }
 
   async delete(id: number): Promise<void> {
-    const delResult = await this.categoriesRepository.delete(id);
-    if (delResult.affected === 0)
+    const foundCategory = await this.categoriesRepository.findOne(id);
+    if (!foundCategory) {
+      throw new HttpException('Category does not exist', HttpStatus.NO_CONTENT);
+    }
+
+    const deviceCount = await this.devicesRepository.count({
+      where: { categoryId: foundCategory.id },
+    });
+    if (deviceCount !== 0) {
       throw new HttpException(
-        'This category does not exist!',
-        HttpStatus.NO_CONTENT
+        'Category cannot be deleted! There are devices in it.',
+        HttpStatus.CONFLICT
       );
+    }
+    await this.categoriesRepository.delete(id);
   }
 }

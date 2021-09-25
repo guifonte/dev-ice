@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-nx test --code-coverage
+yarn nx affected:test --passWithNoTests --codeCoverage --runInBand

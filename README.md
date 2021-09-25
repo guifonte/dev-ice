@@ -1,6 +1,6 @@
+# Dev Ice
 
-
-# DevIce
+[![codecov](https://codecov.io/gh/guifonte/dev-ice/branch/main/graph/badge.svg?token=O4XOAEGSNT)](https://codecov.io/gh/guifonte/dev-ice)
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -86,11 +86,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-
-
-
-
 
 ## ☁ Nx Cloud
 

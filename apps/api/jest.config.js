@@ -11,5 +11,6 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageReporters: ['lcov', 'json', 'text'],
   coverageDirectory: '../../coverage/apps/api',
 };

@@ -17,11 +17,12 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfilee
 
       - name: Generate Report
-        run: yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
-        ran: yarn jest --coverage
+        run: |
+          yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
+          yarn jest --coverage
 
       - name: Codecov Upload
       - uses: codecov/codecov-action@v2

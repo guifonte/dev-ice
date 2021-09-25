@@ -6,7 +6,13 @@ import faker from 'faker';
 import { CategoriesService } from '../src/categories/categories.service';
 import { Category } from '../src/categories/category.entity';
 import { CreateCategoryDTO } from '../src/categories/create-category.dto';
-import { MockType, repositoryMockFactory, mockCategory } from './helpers';
+import {
+  MockType,
+  repositoryMockFactory,
+  mockCategory,
+  mockId,
+} from './helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 describe('CategoriesService', () => {
   let service: CategoriesService;
   let repositoryMock: MockType<Repository<Category>>;
@@ -68,8 +74,26 @@ describe('CategoriesService', () => {
       });
 
       expect(category.id).toBeGreaterThan(0);
+      expect(Math.floor(category.id)).toBe(category.id);
       expect(repositoryMock.create).toBeCalledWith(dto);
       expect(repositoryMock.save).toBeCalledWith(dto);
+    });
+  });
+  describe('delete', () => {
+    it('should throw NO_CONTENT if category with id not found in the database', async () => {
+      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 0 });
+      expect.assertions(2);
+      try {
+        await service.delete(mockId());
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.NO_CONTENT);
+      }
+    });
+
+    it('should do nothing on success', async () => {
+      repositoryMock.delete.mockReturnValue({ raw: undefined, affected: 1 });
+      await service.delete(mockId());
     });
   });
 });

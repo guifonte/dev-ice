@@ -18,7 +18,7 @@ export class Device {
   @Column({ unsigned: true })
   partNumber: number;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(/* istanbul ignore next */ () => Category)
   @JoinColumn()
   category: Category;
 }

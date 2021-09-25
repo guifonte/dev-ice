@@ -12,20 +12,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16
+
       - name: Install dependencies
         run: yarn install --frozen-lockfilee
 
-      - name: Generate Report
-        run: |
-          yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
-          yarn jest --coverage
+      - name: Generate Report for each project
+        run: yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
+
+      - name: Generate Report for whole monorepo
+        run: yarn jest --coverage
 
       - name: Codecov Upload
-      - uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: './coverage/'

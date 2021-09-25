@@ -14,6 +14,7 @@ import { environment as env } from '../environments/environment';
       database: env.RDS_DB_NAME,
       synchronize: true,
       autoLoadEntities: true,
+      migrations: ['migration/*.js'],
     }),
   ],
   controllers: [],

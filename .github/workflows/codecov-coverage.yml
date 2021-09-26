@@ -37,7 +37,7 @@ jobs:
           mysql password: 'test'
 
       - name: Generate Report for api e2e tests
-        run: nx e2e api --code-coverage
+        run: yarn nx e2e api --code-coverage
 
       - name: Codecov Upload
         uses: codecov/codecov-action@v2

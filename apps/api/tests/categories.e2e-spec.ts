@@ -118,6 +118,20 @@ describe('CategoriesModule (e2e)', () => {
           return done();
         });
     });
+
+    it('should return BAD_REQUEST (400) if name is bigger than 128 char', (done) => {
+      const wrongCreateCatDTO = { name: faker.random.alphaNumeric(129) };
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(wrongCreateCatDTO)
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end((err) => {
+          console.log(wrongCreateCatDTO);
+          if (err) return done(err);
+          return done();
+        });
+    });
   });
 
   afterEach(async () => {

@@ -9,6 +9,8 @@ import { CategoriesModule } from '../src/categories/categories.module';
 import { Category } from '../src/categories/category.entity';
 import { Device } from '../src/devices/device.entity';
 import { CreateCategoryDTO } from '../src/categories/create-category.dto';
+import { mockCreateDeviceDTO } from './helpers';
+import { DevicesModule } from '../src/devices/devices.module';
 
 describe('CategoriesModule (e2e)', () => {
   let app: INestApplication;
@@ -18,6 +20,7 @@ describe('CategoriesModule (e2e)', () => {
     moduleFixture = await Test.createTestingModule({
       imports: [
         CategoriesModule,
+        DevicesModule,
         TypeOrmModule.forFeature([Category, Device]),
         TypeOrmModule.forRoot({
           type: 'mysql',
@@ -188,6 +191,36 @@ describe('CategoriesModule (e2e)', () => {
                 .expect((res) => {
                   expect(res.body).toEqual([]);
                 })
+                .end((err) => {
+                  if (err) {
+                    console.log(err);
+                    return done(err);
+                  }
+                  return done();
+                });
+            });
+        });
+    });
+
+    it('should receive CONFLICT (409) if categorie exists, but there are devices with this category', (done) => {
+      const mockedCreateCatDTO: CreateCategoryDTO = {
+        name: faker.random.word(),
+      };
+      const mockedCreateDevDTO = mockCreateDeviceDTO();
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(mockedCreateCatDTO)
+        .expect(201)
+        .then((res) => {
+          mockedCreateDevDTO.categoryId = res.body.id;
+          request(app.getHttpServer())
+            .post('/devices')
+            .send(mockedCreateDevDTO)
+            .expect(201)
+            .then(() => {
+              request(app.getHttpServer())
+                .delete(`/categories/1`)
+                .expect(409)
                 .end((err) => {
                   if (err) {
                     console.log(err);

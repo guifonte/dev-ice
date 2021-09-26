@@ -281,6 +281,51 @@ describe('DevicesModule (e2e)', () => {
     });
   });
 
+  describe('DELETE /devices', () => {
+    it('should receive NO_CONTENT (204) if device does not exists', (done) => {
+      request(app.getHttpServer())
+        .delete(`/devices/2`)
+        .expect(204)
+        .end((err) => {
+          if (err) {
+            return done(err);
+          }
+          return done();
+        });
+    });
+
+    it('should receive 200 if device exists', (done) => {
+      const mockedCreateDevDTO = mockCreateDeviceDTO();
+      createCategory().then((cat) => {
+        mockedCreateDevDTO.categoryId = cat.id;
+        request(app.getHttpServer())
+          .post('/devices')
+          .send(mockedCreateDevDTO)
+          .expect(201)
+          .then(() => {
+            request(app.getHttpServer())
+              .delete(`/devices/1`)
+              .expect(200)
+              .then(() => {
+                request(app.getHttpServer())
+                  .get('/devices')
+                  .expect(200)
+                  .expect((res) => {
+                    expect(res.body).toEqual([]);
+                  })
+                  .end((err) => {
+                    if (err) {
+                      console.log(err);
+                      return done(err);
+                    }
+                    return done();
+                  });
+              });
+          });
+      });
+    });
+  });
+
   afterEach(async () => {
     await app.close();
   });

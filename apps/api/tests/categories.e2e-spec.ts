@@ -93,8 +93,21 @@ describe('CategoriesModule (e2e)', () => {
         });
     });
 
-    it('should return BAD_REQUEST (400) if name is not string ', (done) => {
+    it('should return BAD_REQUEST (400) if name is not string', (done) => {
       const wrongCreateCatDTO = { name: 1 };
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(wrongCreateCatDTO)
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end((err) => {
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should return BAD_REQUEST (400) if name is empty', (done) => {
+      const wrongCreateCatDTO = { name: '' };
       request(app.getHttpServer())
         .post('/categories')
         .send(wrongCreateCatDTO)

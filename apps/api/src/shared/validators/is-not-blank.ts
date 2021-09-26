@@ -20,7 +20,7 @@ export function IsNotBlank(validationOptions?: ValidationOptions) {
         defaultMessage: buildMessage(
           (eachPrefix) =>
             eachPrefix +
-            '$property muss not be empty or made of only whitespaces',
+            '$property must not be empty or made of only whitespaces',
           validationOptions
         ),
       },

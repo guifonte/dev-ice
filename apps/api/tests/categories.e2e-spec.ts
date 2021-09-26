@@ -146,6 +146,60 @@ describe('CategoriesModule (e2e)', () => {
     });
   });
 
+  describe('DELETE /categories', () => {
+    it('should receive NO_CONTENT (204) if categorie does not exists', (done) => {
+      const mockedCreateCatDTO: CreateCategoryDTO = {
+        name: faker.random.word(),
+      };
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(mockedCreateCatDTO)
+        .expect(201)
+        .then(() => {
+          request(app.getHttpServer())
+            .delete(`/categories/2`)
+            .expect(204)
+            .end((err) => {
+              if (err) {
+                console.log(err);
+                return done(err);
+              }
+              return done();
+            });
+        });
+    });
+
+    it('should receive 200 if categorie exists, no devices has it as category, an then remove it', (done) => {
+      const mockedCreateCatDTO: CreateCategoryDTO = {
+        name: faker.random.word(),
+      };
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(mockedCreateCatDTO)
+        .expect(201)
+        .then(() => {
+          request(app.getHttpServer())
+            .delete(`/categories/1`)
+            .expect(200)
+            .then(() => {
+              request(app.getHttpServer())
+                .get('/categories')
+                .expect(200)
+                .expect((res) => {
+                  expect(res.body).toEqual([]);
+                })
+                .end((err) => {
+                  if (err) {
+                    console.log(err);
+                    return done(err);
+                  }
+                  return done();
+                });
+            });
+        });
+    });
+  });
+
   afterEach(async () => {
     await app.close();
   });

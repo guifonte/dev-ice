@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateDeviceDTO } from './create-device.dto';
 import { Device } from './device.entity';
@@ -26,7 +27,9 @@ export class DevicesController {
     return this.devicesService.delete(id);
   }
   @Post()
-  create(@Body() createDeviceDTO: CreateDeviceDTO): Promise<Device> {
+  create(
+    @Body(new ValidationPipe()) createDeviceDTO: CreateDeviceDTO
+  ): Promise<Device> {
     return this.devicesService.create(createDeviceDTO);
   }
 }

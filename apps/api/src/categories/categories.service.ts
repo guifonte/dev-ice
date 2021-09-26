@@ -30,7 +30,7 @@ export class CategoriesService {
     }
 
     const deviceCount = await this.devicesRepository.count({
-      where: { categoryId: foundCategory.id },
+      where: { category: { id: foundCategory.id } },
     });
     if (deviceCount !== 0) {
       throw new HttpException(

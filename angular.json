@@ -49,6 +49,14 @@
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "e2e": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/api/e2e"],
+          "options": {
+            "jestConfig": "apps/api/jest.e2e.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },

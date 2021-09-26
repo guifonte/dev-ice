@@ -127,7 +127,19 @@ describe('CategoriesModule (e2e)', () => {
         .expect('Content-Type', /json/)
         .expect(400)
         .end((err) => {
-          console.log(wrongCreateCatDTO);
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should return BAD_REQUEST (400) if name is only white space', (done) => {
+      const wrongCreateCatDTO = { name: '       ' };
+      request(app.getHttpServer())
+        .post('/categories')
+        .send(wrongCreateCatDTO)
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end((err) => {
           if (err) return done(err);
           return done();
         });

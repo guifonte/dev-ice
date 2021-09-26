@@ -15,7 +15,7 @@ export class DevicesService {
   ) {}
 
   findAll(): Promise<Device[]> {
-    return this.devicesRepository.find();
+    return this.devicesRepository.find({ relations: ['category'] });
   }
 
   async create(createDeviceDTO: CreateDeviceDTO): Promise<Device> {
@@ -25,9 +25,12 @@ export class DevicesService {
     if (!foundCategory) {
       throw new HttpException('Category does no exist', HttpStatus.BAD_REQUEST);
     }
+    const device = new Device();
+    device.color = createDeviceDTO.color;
+    device.partNumber = createDeviceDTO.partNumber;
+    device.category = foundCategory;
 
-    const partialDevice = this.devicesRepository.create(createDeviceDTO);
-    return this.devicesRepository.save(partialDevice);
+    return this.devicesRepository.save(device);
   }
 
   async delete(id: number): Promise<void> {

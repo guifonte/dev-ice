@@ -1,5 +1,5 @@
-import { MinLength } from 'class-validator';
+import { Length } from 'class-validator';
 export class CreateCategoryDTO {
-  @MinLength(1)
+  @Length(1, 128)
   name: string;
 }

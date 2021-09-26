@@ -49,7 +49,7 @@ describe('DevicesService', () => {
     it('should return a empty list if device table is empty', async () => {
       repositoryMock.find.mockReturnValue([]);
       expect(await service.findAll()).toEqual<Device[]>([]);
-      expect(repositoryMock.find).toBeCalledWith();
+      expect(repositoryMock.find).toBeCalledWith({ relations: ['category'] });
     });
 
     it('should return a list with one device if it only has one device', async () => {
@@ -57,7 +57,7 @@ describe('DevicesService', () => {
 
       repositoryMock.find.mockReturnValue([device]);
       expect(await service.findAll()).toEqual<Device[]>([device]);
-      expect(repositoryMock.find).toBeCalledWith();
+      expect(repositoryMock.find).toBeCalledWith({ relations: ['category'] });
     });
 
     it('should return a list with three devices if it has three devices', async () => {
@@ -65,7 +65,7 @@ describe('DevicesService', () => {
 
       repositoryMock.find.mockReturnValue(devices);
       expect(await service.findAll()).toEqual<Device[]>(devices);
-      expect(repositoryMock.find).toBeCalledWith();
+      expect(repositoryMock.find).toBeCalledWith({ relations: ['category'] });
     });
   });
 
@@ -93,8 +93,9 @@ describe('DevicesService', () => {
       });
       expect(device.id).toBeGreaterThan(0);
       expect(Math.floor(device.id)).toBe(device.id);
-      expect(repositoryMock.create).toBeCalledWith(dto);
-      expect(repositoryMock.save).toBeCalledWith(dto);
+
+      const { categoryId, ...dtoNoCatId } = dto; // eslint-disable-line
+      expect(repositoryMock.save).toBeCalledWith({ category, ...dtoNoCatId });
     });
     it('should throw BAD_REQUEST if category does not exist', async () => {
       const dto: CreateDeviceDTO = mockCreateDeviceDTO();

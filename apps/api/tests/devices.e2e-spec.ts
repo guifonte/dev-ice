@@ -41,17 +41,21 @@ describe('DevicesModule (e2e)', () => {
     await app.init();
   });
 
-  async function createCategory(): Promise<number> {
+  async function createCategory(): Promise<Category> {
     const mockedCreateCatDTO: CreateCategoryDTO = {
       name: faker.random.word(),
     };
-    return Promise.resolve<number>(
+    return Promise.resolve<Category>(
       request(app.getHttpServer())
         .post('/categories')
         .send(mockedCreateCatDTO)
         .expect(201)
         .then((res) => {
-          return res.body.id;
+          const category = new Category();
+          category.id = res.body.id;
+          category.name = res.body.name;
+
+          return category;
         })
     );
   }
@@ -73,8 +77,8 @@ describe('DevicesModule (e2e)', () => {
       const mockedCreateDevDTO: CreateDeviceDTO = mockCreateDeviceDTO();
       let receivedDev: Device;
 
-      createCategory().then((id) => {
-        mockedCreateDevDTO.categoryId = id;
+      createCategory().then((cat) => {
+        mockedCreateDevDTO.categoryId = cat.id;
 
         request(app.getHttpServer())
           .post('/devices')
@@ -100,6 +104,31 @@ describe('DevicesModule (e2e)', () => {
   });
 
   describe('POST /devices', () => {
+    it('should receive 201 if post suceeds', (done) => {
+      const mockedCreateDevDTO: CreateDeviceDTO = mockCreateDeviceDTO();
+
+      createCategory().then((cat) => {
+        mockedCreateDevDTO.categoryId = cat.id;
+
+        request(app.getHttpServer())
+          .post('/devices')
+          .send(mockedCreateDevDTO)
+          .expect(201)
+          .expect((res) => {
+            expect(res.body).toEqual({
+              id: 1,
+              partNumber: mockedCreateDevDTO.partNumber,
+              color: mockedCreateDevDTO.color,
+              category: { id: cat.id, name: cat.name },
+            });
+          })
+          .end((err) => {
+            if (err) return done(err);
+            return done();
+          });
+      });
+    });
+
     it('should receive BAD_REQUEST (400) if category does not exists', (done) => {
       const mockedCreateDevDTO: CreateDeviceDTO = mockCreateDeviceDTO();
 
@@ -116,7 +145,7 @@ describe('DevicesModule (e2e)', () => {
     it('should receive BAD_REQUEST (400) if categoryId is not a number', (done) => {
       const wrongMockedCreateDevDTO = {
         partNumber: mockId(),
-        color: faker.commerce.color(),
+        color: 'yellow',
         categoryId: faker.random.word(),
       };
 
@@ -136,7 +165,7 @@ describe('DevicesModule (e2e)', () => {
     it('should receive BAD_REQUEST (400) if partNumber is not a number', (done) => {
       const wrongMockedCreateDevDTO = {
         partNumber: faker.random.word(),
-        color: faker.commerce.color(),
+        color: 'green',
         categoryId: mockId(),
       };
 
@@ -156,7 +185,7 @@ describe('DevicesModule (e2e)', () => {
     it('should receive BAD_REQUEST (400) if partNumber is not a positive integer', (done) => {
       const wrongMockedCreateDevDTO = {
         partNumber: -mockId(),
-        color: faker.commerce.color(),
+        color: 'red',
         categoryId: mockId(),
       };
 
@@ -176,7 +205,7 @@ describe('DevicesModule (e2e)', () => {
     it('should receive BAD_REQUEST (400) if partNumber is 0', (done) => {
       const wrongMockedCreateDevDTO = {
         partNumber: 0,
-        color: faker.commerce.color(),
+        color: 'blue',
         categoryId: mockId(),
       };
 

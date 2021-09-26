@@ -5,7 +5,8 @@ import { Device } from '../src/devices/device.entity';
 import { Category } from '../src/categories/category.entity';
 import { DevicesService } from '../src/devices/devices.service';
 import { DevicesController } from '../src/devices/devices.controller';
-import { mockDevice, repositoryMockFactory } from './helpers';
+import { mockDevice, mockId, repositoryMockFactory } from './helpers';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('DevicesController', () => {
   let controller: DevicesController;
@@ -50,6 +51,33 @@ describe('DevicesController', () => {
       jest.spyOn(service, 'findAll').mockImplementation(() => result);
 
       expect(await controller.findAll()).toEqual([mockedDev]);
+    });
+  });
+
+  describe('delete', () => {
+    it('should return void if service returns void', async () => {
+      const result = Promise.resolve<void>(undefined);
+      jest.spyOn(service, 'delete').mockImplementation(() => result);
+
+      const mockedId = mockId();
+      expect(await controller.deleteOne(mockedId)).toEqual(undefined);
+      expect(service.delete).toHaveBeenCalledWith(mockedId);
+    });
+
+    it('should throw NO_CONTENT if id does not exists', async () => {
+      jest.spyOn(service, 'delete').mockImplementation(() => {
+        throw new HttpException('', HttpStatus.NO_CONTENT);
+      });
+      const mockedId = mockId();
+
+      expect.assertions(3);
+      try {
+        await controller.deleteOne(mockedId);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.NO_CONTENT);
+        expect(service.delete).toHaveBeenCalledWith(mockedId);
+      }
     });
   });
 });

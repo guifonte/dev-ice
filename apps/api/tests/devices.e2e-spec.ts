@@ -97,7 +97,9 @@ describe('DevicesModule (e2e)', () => {
           });
       });
     });
+  });
 
+  describe('POST /devices', () => {
     it('should receive BAD_REQUEST (400) if category does not exists', (done) => {
       const mockedCreateDevDTO: CreateDeviceDTO = mockCreateDeviceDTO();
 
@@ -117,7 +119,6 @@ describe('DevicesModule (e2e)', () => {
         color: faker.commerce.color(),
         categoryId: faker.random.word(),
       };
-      wrongMockedCreateDevDTO.categoryId = faker.random.word();
 
       request(app.getHttpServer())
         .post('/devices')
@@ -126,6 +127,66 @@ describe('DevicesModule (e2e)', () => {
         .end((err, res) => {
           expect(res.body.message[0]).toBe(
             'categoryId must be an integer number'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should receive BAD_REQUEST (400) if partNumber is not a number', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: faker.random.word(),
+        color: faker.commerce.color(),
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'partNumber must be an integer number'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should receive BAD_REQUEST (400) if partNumber is not a positive integer', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: -mockId(),
+        color: faker.commerce.color(),
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'partNumber must not be less than 1'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should receive BAD_REQUEST (400) if partNumber is 0', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: 0,
+        color: faker.commerce.color(),
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'partNumber must not be less than 1'
           );
           if (err) return done(err);
           return done();

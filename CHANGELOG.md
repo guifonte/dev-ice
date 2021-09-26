@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/guifonte/dev-ice/compare/v1.0.0...v1.1.0) (2021-09-26)
+
+### Features
+
+- **api:** configure DevicesController, DevicesModule and AppModule ([9171a48](https://github.com/guifonte/dev-ice/commit/9171a48152392324f9ceff3ec66f411fe5870bf6))
+- **api:** configure swagger, cors, helmet and throttler ([fb7c3d0](https://github.com/guifonte/dev-ice/commit/fb7c3d081cca819732abb6481d437280f6266959))
+- **api:** ensure DevicesController create function returns properly ([e6ff24b](https://github.com/guifonte/dev-ice/commit/e6ff24b0e1d150e1d6771a448f44c7031029e9e2))
+- **api:** ensure DevicesController deleteOne returns properly ([3548772](https://github.com/guifonte/dev-ice/commit/3548772c9834ef468c9a29a7d740ebd5a2737181))
+- **api:** ensure DevicesController findAll returns properly ([7c28220](https://github.com/guifonte/dev-ice/commit/7c28220e7dba1b048686a4cf5668aebf54b56c32))
+- **api:** ensure partNumber is a positive integer ([a2ffebc](https://github.com/guifonte/dev-ice/commit/a2ffebc3befd65ecea3cc6f901df739dd7d83a8f))
+- **api:** ensure post creates a device with category ([43bd2e6](https://github.com/guifonte/dev-ice/commit/43bd2e6f6108842fe798cec189bc51227f1aa9cf))
+- **api:** ensure that categoryId must be a number ([edda6b0](https://github.com/guifonte/dev-ice/commit/edda6b030162a57de0fd2d3a70a14bbb3ec98660))
+- **api:** ensure that color cannot be empty or longer than 16 letters, and only letters ([4b8f36e](https://github.com/guifonte/dev-ice/commit/4b8f36e468da35d5c48a58738728c7356214b6d3))
+- **api:** generate devices module and controller ([d4b62e7](https://github.com/guifonte/dev-ice/commit/d4b62e7a8671eb9b3e3fd1a15d32bb8fb3138f05))
+
 # [1.1.0-beta.2](https://github.com/guifonte/dev-ice/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2021-09-26)
 
 ### Features

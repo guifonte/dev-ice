@@ -192,6 +192,64 @@ describe('DevicesModule (e2e)', () => {
           return done();
         });
     });
+
+    it('should receive BAD_REQUEST (400) if color is empty', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: mockId(),
+        color: '',
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'color must be longer than or equal to 1 characters'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should receive BAD_REQUEST (400) if color longer than 16 letters', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: mockId(),
+        color: 'abcdefghijklmnopq',
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'color must be shorter than or equal to 16 characters'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
+
+    it('should receive BAD_REQUEST (400) if color is not only letters', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: mockId(),
+        color: 'l0r3m 1psulum',
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe('color must contain only letters');
+          if (err) return done(err);
+          return done();
+        });
+    });
   });
 
   afterEach(async () => {

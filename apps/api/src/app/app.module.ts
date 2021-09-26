@@ -7,6 +7,7 @@ import { Connection } from 'typeorm';
 import { environment as env } from '../environments/environment';
 
 import { CategoriesModule } from '../categories/categories.module';
+import { DevicesModule } from '../devices/devices.module';
 
 const throttlerProvider = {
   provide: APP_GUARD,
@@ -16,6 +17,7 @@ const throttlerProvider = {
 @Module({
   imports: [
     CategoriesModule,
+    DevicesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: env.RDS_HOSTNAME,

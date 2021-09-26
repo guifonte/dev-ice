@@ -6,10 +6,5 @@
     "esModuleInterop": true,
     "types": ["jest", "node"]
   },
-  "include": [
-    "**/*.spec.ts",
-    "**/*.e2e-spec.ts",
-    "**/*.d.ts",
-    "tests/helpers/**/*.ts"
-  ]
+  "include": ["**/*.spec.ts", "**/*.e2e-spec.ts", "**/*.d.ts"]
 }

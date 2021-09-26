@@ -1,5 +1,12 @@
 module.exports = {
   displayName: 'api:e2e',
+  collectCoverageFrom: ['src/**/*.ts'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/test',
+    '.module.ts',
+    '<rootDir>/src/main.ts',
+    '<rootDir>/src/environments',
+  ],
   resolver: '@nrwl/jest/plugins/resolver',
   globals: {
     'ts-jest': {

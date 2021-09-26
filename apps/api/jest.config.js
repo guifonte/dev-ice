@@ -1,5 +1,12 @@
 module.exports = {
   displayName: 'api',
+  collectCoverageFrom: ['src/**/*.ts'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/test',
+    '.module.ts',
+    '<rootDir>/src/main.ts',
+    '<rootDir>/src/environments',
+  ],
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {

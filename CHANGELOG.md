@@ -1,3 +1,9 @@
+# [1.0.0-beta.5](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-09-26)
+
+### Features
+
+- **api:** ensure delete on /categories return 200 on success and 204 if category does not exists ([5e529c5](https://github.com/guifonte/dev-ice/commit/5e529c5d52a5c282c0d90cf36a0dede503811f06))
+
 # [1.0.0-beta.4](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-09-26)
 
 ### Bug Fixes

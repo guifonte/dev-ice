@@ -1,20 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { DevicesService } from '../src/devices/devices.service';
-import { Device } from '../src/devices/device.entity';
 import {
   mockCategory,
   mockId,
   MockType,
   repositoryMockFactory,
+  mockDevice,
+  mockCreateDeviceDTO,
 } from './helpers';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { mockDevice } from './helpers/mock-device';
-import { CreateDeviceDTO } from '../src/devices/create-device.dto';
-import { mockCreateDeviceDTO } from './helpers/mock-create-device-dto';
+import { DevicesService } from '../src/devices/devices.service';
+import { Device } from '../src/devices/device.entity';
 import { Category } from '../src/categories/category.entity';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { CreateDeviceDTO } from '../src/devices/create-device.dto';
 
 describe('DevicesService', () => {
   let service: DevicesService;

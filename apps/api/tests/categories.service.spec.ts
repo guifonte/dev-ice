@@ -1,19 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import faker from 'faker';
 
-import { CategoriesService } from '../src/categories/categories.service';
-import { Category } from '../src/categories/category.entity';
-import { CreateCategoryDTO } from '../src/categories/create-category.dto';
 import {
   MockType,
   repositoryMockFactory,
   mockCategory,
   mockId,
 } from './helpers';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { CategoriesService } from '../src/categories/categories.service';
+import { Category } from '../src/categories/category.entity';
 import { Device } from '../src/devices/device.entity';
+import { CreateCategoryDTO } from '../src/categories/create-category.dto';
+
 describe('CategoriesService', () => {
   let service: CategoriesService;
   let repositoryMock: MockType<Repository<Category>>;

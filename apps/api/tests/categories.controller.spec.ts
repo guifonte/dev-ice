@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-
-import { CategoriesController } from '../src/categories/categories.controller';
-import { CategoriesService } from '../src/categories/categories.service';
-import { mockCategory, mockId, repositoryMockFactory } from './helpers';
-import { Category } from '../src/categories/category.entity';
-import { Device } from '../src/devices/device.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import faker from 'faker';
+
+import { mockCategory, mockId, repositoryMockFactory } from './helpers';
+import { CategoriesController } from '../src/categories/categories.controller';
+import { CategoriesService } from '../src/categories/categories.service';
+import { Category } from '../src/categories/category.entity';
+import { Device } from '../src/devices/device.entity';
 import { CreateCategoryDTO } from '../src/categories/create-category.dto';
 
 describe('CategoriesController', () => {

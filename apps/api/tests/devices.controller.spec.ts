@@ -5,8 +5,14 @@ import { Device } from '../src/devices/device.entity';
 import { Category } from '../src/categories/category.entity';
 import { DevicesService } from '../src/devices/devices.service';
 import { DevicesController } from '../src/devices/devices.controller';
-import { mockDevice, mockId, repositoryMockFactory } from './helpers';
+import {
+  mockCreateDeviceDTO,
+  mockDevice,
+  mockId,
+  repositoryMockFactory,
+} from './helpers';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { CreateDeviceDTO } from '../src/devices/create-device.dto';
 
 describe('DevicesController', () => {
   let controller: DevicesController;
@@ -77,6 +83,34 @@ describe('DevicesController', () => {
         expect(error).toBeInstanceOf(HttpException);
         expect(error).toHaveProperty('status', HttpStatus.NO_CONTENT);
         expect(service.delete).toHaveBeenCalledWith(mockedId);
+      }
+    });
+  });
+
+  describe('create', () => {
+    it('should return a Device if service returns so', async () => {
+      const mockedDev = mockDevice();
+      const result = Promise.resolve<Device>(mockedDev);
+      jest.spyOn(service, 'create').mockImplementation(() => result);
+
+      const mockedDTO: CreateDeviceDTO = mockCreateDeviceDTO();
+      expect(await controller.create(mockedDTO)).toEqual(mockedDev);
+      expect(service.create).toHaveBeenCalledWith(mockedDTO);
+    });
+
+    it('should throw BAD_REQUEST (400) if services throw', async () => {
+      jest.spyOn(service, 'create').mockImplementation(() => {
+        throw new HttpException('', HttpStatus.BAD_REQUEST);
+      });
+
+      const mockedDTO: CreateDeviceDTO = mockCreateDeviceDTO();
+      expect.assertions(3);
+      try {
+        await controller.create(mockedDTO);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error).toHaveProperty('status', HttpStatus.BAD_REQUEST);
+        expect(service.create).toHaveBeenCalledWith(mockedDTO);
       }
     });
   });

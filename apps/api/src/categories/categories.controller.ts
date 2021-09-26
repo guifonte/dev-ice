@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { Category } from './category.entity';
@@ -26,7 +27,9 @@ export class CategoriesController {
   }
 
   @Post()
-  create(@Body() createCategoryDTO: CreateCategoryDTO): Promise<Category> {
+  create(
+    @Body(new ValidationPipe()) createCategoryDTO: CreateCategoryDTO
+  ): Promise<Category> {
     return this.categoriesService.create(createCategoryDTO);
   }
 }

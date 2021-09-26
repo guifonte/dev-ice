@@ -1,3 +1,12 @@
+# [1.1.0-beta.2](https://github.com/guifonte/dev-ice/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2021-09-26)
+
+### Features
+
+- **api:** ensure partNumber is a positive integer ([a2ffebc](https://github.com/guifonte/dev-ice/commit/a2ffebc3befd65ecea3cc6f901df739dd7d83a8f))
+- **api:** ensure post creates a device with category ([43bd2e6](https://github.com/guifonte/dev-ice/commit/43bd2e6f6108842fe798cec189bc51227f1aa9cf))
+- **api:** ensure that categoryId must be a number ([edda6b0](https://github.com/guifonte/dev-ice/commit/edda6b030162a57de0fd2d3a70a14bbb3ec98660))
+- **api:** ensure that color cannot be empty or longer than 16 letters, and only letters ([4b8f36e](https://github.com/guifonte/dev-ice/commit/4b8f36e468da35d5c48a58738728c7356214b6d3))
+
 # [1.1.0-beta.1](https://github.com/guifonte/dev-ice/compare/v1.0.0...v1.1.0-beta.1) (2021-09-26)
 
 ### Features

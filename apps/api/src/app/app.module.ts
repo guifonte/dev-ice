@@ -1,8 +1,17 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CategoriesModule } from '../categories/categories.module';
+import { Connection } from 'typeorm';
 
 import { environment as env } from '../environments/environment';
+
+import { CategoriesModule } from '../categories/categories.module';
+
+const throttlerProvider = {
+  provide: APP_GUARD,
+  useClass: ThrottlerGuard,
+};
 
 @Module({
   imports: [
@@ -18,8 +27,13 @@ import { environment as env } from '../environments/environment';
       autoLoadEntities: true,
       migrations: ['migration/*.js'],
     }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 50,
+    }),
   ],
-  controllers: [],
-  providers: [],
+  providers: [throttlerProvider],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

@@ -1,10 +1,7 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as helmet from 'helmet';
 
 import { AppModule } from './app/app.module';
 
@@ -12,6 +9,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
+  app.use(helmet());
+
+  const config = new DocumentBuilder()
+    .setTitle('DevIce API Docs')
+    .setDescription('The devIce API description')
+    .setVersion('1.0')
+    .addTag('devices')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);

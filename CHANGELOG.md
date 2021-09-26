@@ -1,3 +1,14 @@
+# [1.1.0-beta.1](https://github.com/guifonte/dev-ice/compare/v1.0.0...v1.1.0-beta.1) (2021-09-26)
+
+### Features
+
+- **api:** configure DevicesController, DevicesModule and AppModule ([9171a48](https://github.com/guifonte/dev-ice/commit/9171a48152392324f9ceff3ec66f411fe5870bf6))
+- **api:** configure swagger, cors, helmet and throttler ([fb7c3d0](https://github.com/guifonte/dev-ice/commit/fb7c3d081cca819732abb6481d437280f6266959))
+- **api:** ensure DevicesController create function returns properly ([e6ff24b](https://github.com/guifonte/dev-ice/commit/e6ff24b0e1d150e1d6771a448f44c7031029e9e2))
+- **api:** ensure DevicesController deleteOne returns properly ([3548772](https://github.com/guifonte/dev-ice/commit/3548772c9834ef468c9a29a7d740ebd5a2737181))
+- **api:** ensure DevicesController findAll returns properly ([7c28220](https://github.com/guifonte/dev-ice/commit/7c28220e7dba1b048686a4cf5668aebf54b56c32))
+- **api:** generate devices module and controller ([d4b62e7](https://github.com/guifonte/dev-ice/commit/d4b62e7a8671eb9b3e3fd1a15d32bb8fb3138f05))
+
 # 1.0.0 (2021-09-26)
 
 ### Bug Fixes

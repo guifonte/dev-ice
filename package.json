@@ -8,6 +8,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "test:coverage": "jest --coverage --no-cache --passWithNoTests --bail",
     "prepare": "husky install",
     "commit": "git-cz"
   },

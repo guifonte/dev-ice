@@ -1,4 +1,13 @@
-import { Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
+import { CreateDeviceDTO } from './create-device.dto';
 import { Device } from './device.entity';
 
 import { DevicesService } from './devices.service';
@@ -15,5 +24,9 @@ export class DevicesController {
   @Delete(':id')
   deleteOne(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.devicesService.delete(id);
+  }
+  @Post()
+  create(@Body() createDeviceDTO: CreateDeviceDTO): Promise<Device> {
+    return this.devicesService.create(createDeviceDTO);
   }
 }

@@ -1,3 +1,17 @@
+# [1.0.0-beta.4](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-09-26)
+
+### Bug Fixes
+
+- **api:** typo ([042e01a](https://github.com/guifonte/dev-ice/commit/042e01ac0a456fecb004de4c2a0791ecf3d68de3))
+
+### Features
+
+- **api:** add TypeOrmModeule configuration in CategoriesModule ([95f1eb5](https://github.com/guifonte/dev-ice/commit/95f1eb5a263980f9eb8aefa27007a5a34f705838))
+- **api:** ensure CategoriesController POST returns 400 if DTO name field is only white space ([47cf794](https://github.com/guifonte/dev-ice/commit/47cf79453ed7a585c75eb77a88b9988abf99ee7e))
+- **api:** ensure CategoriesController returns 400 if DTO name field is bigger than 128 char ([c5dbcad](https://github.com/guifonte/dev-ice/commit/c5dbcad3a3a6d0299c104972601924ce748795fc))
+- **api:** ensure CategoriesController returns 400 if DTO name field is empty ([9c81adc](https://github.com/guifonte/dev-ice/commit/9c81adc41e074510f67db0fa9de71c7922990246))
+- **api:** ensure CategoriesController returns 400 if DTO name field is not string ([54a4430](https://github.com/guifonte/dev-ice/commit/54a44306217fcbaae07f0f1f01e8e7c027a57c7f))
+
 # [1.0.0-beta.3](https://github.com/guifonte/dev-ice/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-09-25)
 
 ### Features

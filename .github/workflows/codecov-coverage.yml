@@ -25,6 +25,19 @@ jobs:
       - name: Generate Report for whole monorepo
         run: yarn jest --coverage
 
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop
+
+      - name: Initialize MySQL Server
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'test'
+          mysql user: 'tester'
+          mysql password: 'test'
+
+      - name: Generate Report for api e2e tests
+        run: nx e2e api --code-coverage
+
       - name: Codecov Upload
         uses: codecov/codecov-action@v2
         with:

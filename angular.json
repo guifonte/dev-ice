@@ -163,7 +163,7 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "proxyConfig": "apps/web/proxy.conf.json"
+            "browserTarget": "web:build:development"
           }
         },
         "extract-i18n": {

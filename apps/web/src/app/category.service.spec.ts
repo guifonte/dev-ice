@@ -11,7 +11,9 @@ import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './error-interceptor';
 
-const url = '/api/categories';
+import { environment as env } from '../environments/environment';
+
+const url = env.baseURL + '/api/categories';
 
 describe('CategoryService', () => {
   let httpTestingController: HttpTestingController;

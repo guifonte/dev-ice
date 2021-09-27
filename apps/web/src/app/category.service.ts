@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 import { Subject } from 'rxjs';
+import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 
-const url = '/api/categories';
+import { environment as env } from '../environments/environment';
+
+const url = env.baseURL + '/api/categories';
 
 @Injectable({
   providedIn: 'root',

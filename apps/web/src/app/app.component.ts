@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@dev-ice/domain';
+import { Category } from '@dev-ice/domain';
+
+import { environment as env } from '../environments/environment';
 
 @Component({
   selector: 'dev-ice-root',
@@ -8,6 +10,6 @@ import { Message } from '@dev-ice/domain';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
+  hello$ = this.http.get<Category[]>(env.baseURL + '/api/categories');
   constructor(private http: HttpClient) {}
 }

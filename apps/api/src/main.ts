@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as helmet from 'helmet';
+// import * as helmet from 'helmet';
 
 import { AppModule } from './app/app.module';
 
@@ -10,7 +10,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
-  app.use(helmet());
+  // app.use(helmet());
 
   const config = new DocumentBuilder()
     .setTitle('Dev-ice API Docs')

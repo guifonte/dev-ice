@@ -1,3 +1,24 @@
+# [1.2.0-beta.1](https://github.com/guifonte/dev-ice/compare/v1.1.0...v1.2.0-beta.1) (2021-09-27)
+
+### Bug Fixes
+
+- **web:** fix typo ([d915dc2](https://github.com/guifonte/dev-ice/commit/d915dc2f2174bedbc93bdf44bbe456203117e343))
+- **web:** remove proxy and use environment to enable production build ([72ebeb4](https://github.com/guifonte/dev-ice/commit/72ebeb4b5cc8450d4ac9d984942416316e38ed54))
+
+### Features
+
+- **api-interfaces:** add category interface ([e015868](https://github.com/guifonte/dev-ice/commit/e0158689bbaf930e362bedfe56a7dea587a3d802))
+- **domain:** add CreateCategoryDTO ([ed80255](https://github.com/guifonte/dev-ice/commit/ed80255a299f70b4ce52f9c9f44cb7241089e31f))
+- **testing:** create testing lib to aggregate all test helpers ([d59913b](https://github.com/guifonte/dev-ice/commit/d59913b9d86410a8d09a4c478dd4b897ecc0ce35))
+- **web:** add custom favicon ([f0ffc0e](https://github.com/guifonte/dev-ice/commit/f0ffc0ed98df15d7e9a870f4554612ce1a46895c))
+- **web:** add Observer pattern to createCategory ([dff2829](https://github.com/guifonte/dev-ice/commit/dff2829c4d71a5f414ee003c2aa84b8846ff4bf1))
+- **web:** add Observer pattern to deleteCategory ([af055d8](https://github.com/guifonte/dev-ice/commit/af055d8ef3ddfa86434e5d7bed1a4c2da95804b1))
+- **web:** add Observer pattern to getCategories ([0e94a8d](https://github.com/guifonte/dev-ice/commit/0e94a8dcbacc99f41c34ed885f60673147670f02))
+- **web:** add simple error-interceptor ([9f4fe5f](https://github.com/guifonte/dev-ice/commit/9f4fe5f08344a316a0b0cb11937371c15f266981))
+- **web:** create category service and ensure getCategories behavior on success ([147c8ac](https://github.com/guifonte/dev-ice/commit/147c8acd58e93d5c9dc177644f88dd635022b6a5))
+- **web:** ensure createCategory returns a Category on success case ([73f0e1e](https://github.com/guifonte/dev-ice/commit/73f0e1e03b3401670b61f831993968c6a3ca4598))
+- **web:** ensure delete service function deleteCategory correct behavior on success ([a648571](https://github.com/guifonte/dev-ice/commit/a648571e7c0c67fbcd99a80ad8b5ac67e33c25c3))
+
 # [1.1.0](https://github.com/guifonte/dev-ice/compare/v1.0.0...v1.1.0) (2021-09-26)
 
 ### Features

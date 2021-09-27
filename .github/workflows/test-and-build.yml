@@ -8,8 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    needs: install-deps
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: git fetch --no-tags --prune --depth=1 origin master
@@ -17,8 +16,7 @@ jobs:
       - run: yarn nx affected --target=test --base=origin/master --parallel
 
   build:
-    runs-on: ubuntu-latest
-    needs: install-deps
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: git fetch --no-tags --prune --depth=1 origin master

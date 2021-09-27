@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category, CreateCategoryDTO } from '@dev-ice/domain';
-import { Subject, throwError } from 'rxjs';
+import { Subject } from 'rxjs';
 
 const url = '/api/categories';
 

@@ -11422,6 +11422,23 @@ pretty-format@^27.0.0, pretty-format@^27.0.6, pretty-format@^27.2.2:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
+primeflex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-3.0.1.tgz#38b4f37caf0d20d3d28ed72fe1dee571671fc6b6"
+  integrity sha512-OmBVecmPyXFjIHuOmcbUVGJPh+2TPF3bBVO9ENtu4O4kF6taZThxGrxaWCljkfu6427wLfgDbtFKqq1vU2nj/Q==
+
+primeicons@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.1.0.tgz#19eaef8ef5594b0006358ae64e738d03e167c9bb"
+  integrity sha512-uEv2pSPk1zQCfaB2VgnUfnUxxlGryYi+5rbdxmZBBt5v9S/pscIQYS5YDLxsQZ7D9jn5c76+Tx5wX/2J1nK6sA==
+
+primeng@^12.2.0-rc.1:
+  version "12.2.0-rc.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-12.2.0-rc.1.tgz#bc2870ea372095c7745ce4632f3b96b36832e423"
+  integrity sha512-QQMa8mlUvpanK23u1d8iRhkBFGMSXj81fCU/Cv33dRDpVOoyeINI7EG+2bCBwVP7TeTNq0z2sz54191hvXSxYQ==
+  dependencies:
+    tslib "^2.1.0"
+
 proc-log@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/proc-log/-/proc-log-1.0.0.tgz#0d927307401f69ed79341e83a0b2c9a13395eb77"

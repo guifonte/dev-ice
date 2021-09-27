@@ -12,8 +12,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) { // eslint-disable-line
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        // console.log(error);
-        alert(error.error.message);
+        console.log(error);
+        // alert(error.error.message);
         return throwError(() => error);
       })
     );

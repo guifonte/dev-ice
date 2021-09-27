@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { Category } from '@dev-ice/domain';
@@ -13,7 +14,14 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
 
   private categorySub!: Subscription;
-  constructor(public categoryService: CategoryService) {}
+  constructor(
+    public categoryService: CategoryService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle(
+      'Categories | Dev-ice - Your devices organized and safe in the Cloud'
+    );
+  }
 
   ngOnInit(): void {
     this.categorySub = this.categoryService

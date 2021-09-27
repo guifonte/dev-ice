@@ -164,6 +164,27 @@ describe('CategoryService', () => {
 
       req[1].flush(expectedCategory2);
     });
+    it('should return error to subscription', (done) => {
+      const mockedDTO = mockCreateCategoryDTO();
+
+      categorySubs = categoriesUpdateListener.subscribe({
+        next: () => {
+          done('should not be here');
+        },
+        error: (err: HttpErrorResponse) => {
+          expect(err.status).toEqual(404);
+          expect(err.error).toEqual(emsg);
+          done();
+        },
+      });
+
+      service.createCategory(mockedDTO);
+
+      const req = httpTestingController.expectOne(url);
+      expect(req.request.method).toEqual('POST');
+      const emsg = 'deliberate 404 error';
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    });
   });
 
   describe('deleteCategory', () => {

@@ -8,6 +8,8 @@ import { CategoryService } from './category.service';
 import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 import { mockCategory, mockCreateCategoryDTO, mockId } from '@dev-ice/testing';
 import { Observable, Subscription } from 'rxjs';
+import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './error-interceptor';
 
 const url = '/api/categories';
 
@@ -20,16 +22,25 @@ describe('CategoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CategoryService],
+      providers: [
+        CategoryService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: ErrorInterceptor,
+          multi: true,
+        },
+      ],
     });
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CategoryService);
     categoriesUpdateListener = service.getCategoriesUpdateListener();
+    window.alert = jest.fn();
   });
 
   afterEach(() => {
     httpTestingController.verify();
     categorySubs?.unsubscribe();
+    // window.alert.mockClear() // ts-ignore
   });
 
   it('should be created', () => {
@@ -77,6 +88,26 @@ describe('CategoryService', () => {
       const req = httpTestingController.expectOne(url);
       expect(req.request.method).toEqual('GET');
       req.flush(expectedCategories);
+    });
+
+    it('should return error to subscription', (done) => {
+      categorySubs = categoriesUpdateListener.subscribe({
+        next: () => {
+          done('should not be here');
+        },
+        error: (err: HttpErrorResponse) => {
+          expect(err.status).toEqual(404);
+          expect(err.error).toEqual(emsg);
+          done();
+        },
+      });
+
+      service.getCategories();
+
+      const req = httpTestingController.expectOne(url);
+      expect(req.request.method).toEqual('GET');
+      const emsg = 'deliberate 404 error';
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
     });
   });
 

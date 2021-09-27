@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Device } from '@dev-ice/domain';
+import { CreateDeviceDTO, Device } from '@dev-ice/domain';
 import { Subject } from 'rxjs';
 
 import { environment as env } from '../environments/environment';
@@ -16,7 +16,7 @@ export class DeviceService {
 
   constructor(private http: HttpClient) {}
 
-  private updateCategoriesUpdated() {
+  private updateDevicesUpdated() {
     this.devicesUpdated.next([...this.devices]);
   }
 
@@ -28,7 +28,19 @@ export class DeviceService {
     this.http.get<Device[]>(url).subscribe({
       next: (res) => {
         this.devices = res;
-        this.updateCategoriesUpdated();
+        this.updateDevicesUpdated();
+      },
+      error: (err) => {
+        this.devicesUpdated.error(err);
+      },
+    });
+  }
+
+  createDevice(createDeviceDTO: CreateDeviceDTO) {
+    this.http.post<Device>(url, createDeviceDTO).subscribe({
+      next: (res) => {
+        this.devices = [...this.devices, res];
+        this.updateDevicesUpdated();
       },
       error: (err) => {
         this.devicesUpdated.error(err);

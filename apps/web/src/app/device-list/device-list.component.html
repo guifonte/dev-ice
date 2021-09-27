@@ -1,1 +1,5 @@
-<p>device-list works!</p>
+<ul>
+  <li *ngFor="let device of devices">
+    {{ device.partNumber }} {{ device.color }} {{ device.category.name }}
+  </li>
+</ul>

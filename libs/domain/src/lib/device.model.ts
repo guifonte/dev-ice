@@ -1,6 +1,6 @@
 import { Category } from './category.model';
 
-export class Device {
+export interface Device {
   id: number;
   color: string;
   partNumber: number;

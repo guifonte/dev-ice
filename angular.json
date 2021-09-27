@@ -20,6 +20,8 @@
               "optimization": true,
               "extractLicenses": true,
               "inspect": false,
+              "externalDependencies": "all",
+              "generatePackageJson": true,
               "fileReplacements": [
                 {
                   "replace": "apps/api/src/environments/environment.ts",

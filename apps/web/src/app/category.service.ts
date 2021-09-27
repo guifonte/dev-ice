@@ -37,6 +37,9 @@ export class CategoryService {
   }
 
   deleteCategory(id: number) {
-    return this.http.delete<void>(`${url}/${id}`);
+    this.http.delete<void>(`${url}/${id}`).subscribe(() => {
+      this.categories = this.categories.filter((cat) => cat.id !== id);
+      this.updateCategoriesUpdated();
+    });
   }
 }

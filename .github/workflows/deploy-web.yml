@@ -3,7 +3,7 @@ name: Deploy Web App
 on:
   push:
     branches:
-      - develop
+      - main
     paths:
       - 'apps/web/**'
 

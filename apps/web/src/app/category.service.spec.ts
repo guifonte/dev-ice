@@ -238,5 +238,27 @@ describe('CategoryService', () => {
       expect(req.request.method).toEqual('DELETE');
       req.flush(null);
     });
+
+    it('should return error to subscription', (done) => {
+      const mockedId = mockId();
+
+      categorySubs = categoriesUpdateListener.subscribe({
+        next: () => {
+          done('should not be here');
+        },
+        error: (err: HttpErrorResponse) => {
+          expect(err.status).toEqual(404);
+          expect(err.error).toEqual(emsg);
+          done();
+        },
+      });
+
+      service.deleteCategory(mockedId);
+
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
+      expect(req.request.method).toEqual('DELETE');
+      const emsg = 'deliberate 404 error';
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    });
   });
 });

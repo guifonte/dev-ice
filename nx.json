@@ -30,7 +30,7 @@
     "api": {
       "tags": []
     },
-    "api-interfaces": {
+    "domain": {
       "tags": []
     },
     "testing": {

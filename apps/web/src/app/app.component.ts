@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@dev-ice/api-interfaces';
+import { Message } from '@dev-ice/domain';
 
 @Component({
   selector: 'dev-ice-root',

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category, CreateCategoryDTO } from '@dev-ice/domain';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 
 const url = '/api/categories';
 
@@ -23,9 +23,14 @@ export class CategoryService {
   }
 
   getCategories() {
-    this.http.get<Category[]>(url).subscribe((res) => {
-      this.categories = res;
-      this.updateCategoriesUpdated();
+    this.http.get<Category[]>(url).subscribe({
+      next: (res) => {
+        this.categories = res;
+        this.updateCategoriesUpdated();
+      },
+      error: (err) => {
+        this.categoriesUpdated.error(err);
+      },
     });
   }
 
@@ -37,9 +42,14 @@ export class CategoryService {
   }
 
   deleteCategory(id: number) {
-    this.http.delete<void>(`${url}/${id}`).subscribe(() => {
-      this.categories = this.categories.filter((cat) => cat.id !== id);
-      this.updateCategoriesUpdated();
+    this.http.delete<void>(`${url}/${id}`).subscribe({
+      next: () => {
+        this.categories = this.categories.filter((cat) => cat.id !== id);
+        this.updateCategoriesUpdated();
+      },
+      error: (err) => {
+        this.categoriesUpdated.error(err);
+      },
     });
   }
 }

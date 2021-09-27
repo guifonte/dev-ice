@@ -14,8 +14,8 @@ async function bootstrap() {
   app.use(helmet());
 
   const config = new DocumentBuilder()
-    .setTitle('DevIce API Docs')
-    .setDescription('The devIce API description')
+    .setTitle('Dev-ice API Docs')
+    .setDescription('The dev-ice API description')
     .setVersion('1.0')
     .addTag('devices')
     .build();

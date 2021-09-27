@@ -1,0 +1,41 @@
+@import 'primeflex/utils';
+
+$sm: 576px;
+
+:host ::ng-deep {
+  .p-menubar-start {
+    width: 100%;
+  }
+
+  .p-menubar {
+    padding: 0 2rem 0 0;
+    background-color: var(--surface-card);
+  }
+
+  p-menubarsub {
+    display: flex;
+  }
+
+  .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    border-color: transparent;
+  }
+
+  .p-tabmenuitem .p-menuitem-link-active {
+    border-bottom: 2px solid var(--blue-500) !important;
+  }
+
+  .p-menuitem .p-menuitem-link-active {
+    border: 1px solid var(--blue-500) !important;
+    border-left: 8px solid var(--blue-500) !important;
+  }
+
+  @media (min-width: $sm) {
+    p-menubarsub,
+    .p-menubar-button {
+      display: none;
+    }
+    .p-menubar {
+      padding: 0 5rem;
+    }
+  }
+}

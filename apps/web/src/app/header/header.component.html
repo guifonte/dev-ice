@@ -1,1 +1,16 @@
-<p>header works!</p>
+<header>
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <div class="flex align-items-end">
+        <img
+          src="/assets/logo.svg"
+          class="m-2 sm:m-3 mr-5 h-2rem sm:h-4rem"
+          alt="brand logo"
+        />
+        <nav class="hidden sm:inline-flex">
+          <p-tabMenu class="nav-tab px-2" [model]="items"></p-tabMenu>
+        </nav>
+      </div>
+    </ng-template>
+  </p-menubar>
+</header>

@@ -79,14 +79,14 @@ describe('CategoryService', () => {
   });
 
   describe('createCategory', () => {
-    it('should return a category if server respond with a category', (done) => {
+    it('should return a list with one category if categories list is empty', (done) => {
       const mockedDTO: CreateCategoryDTO = mockCreateCategoryDTO();
       const expectedCategory: Category = { id: mockId(), ...mockedDTO };
 
-      service.createCategory(mockedDTO).subscribe({
+      categorySubs = categoriesUpdateListener.subscribe({
         next: (value) => {
           try {
-            expect(value).toEqual(expectedCategory);
+            expect(value).toEqual([expectedCategory]);
             done();
           } catch (error) {
             done(error);
@@ -95,9 +95,39 @@ describe('CategoryService', () => {
         error: (err) => done(err),
       });
 
+      service.createCategory(mockedDTO);
+
       const req = httpTestingController.expectOne('/api/categories');
       expect(req.request.method).toEqual('POST');
       req.flush(expectedCategory);
+    });
+
+    it('should return a list with two category if category list had only a category', (done) => {
+      const mockedDTO: CreateCategoryDTO = mockCreateCategoryDTO();
+      const expectedCategory: Category = { id: mockId(), ...mockedDTO };
+      const expectedCategory2: Category = { id: mockId(), ...mockedDTO };
+
+      service.createCategory(mockedDTO);
+      service.createCategory(mockedDTO);
+
+      const req = httpTestingController.match('/api/categories');
+      expect(req.length).toBe(2);
+      expect(req[0].request.method).toEqual('POST');
+      req[0].flush(expectedCategory);
+
+      categorySubs = categoriesUpdateListener.subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual([expectedCategory, expectedCategory2]);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
+      });
+
+      req[1].flush(expectedCategory2);
     });
   });
 

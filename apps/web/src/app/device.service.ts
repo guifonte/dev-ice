@@ -16,7 +16,23 @@ export class DeviceService {
 
   constructor(private http: HttpClient) {}
 
+  private updateCategoriesUpdated() {
+    this.devicesUpdated.next([...this.devices]);
+  }
+
   getDevicesUpdateListener() {
     return this.devicesUpdated.asObservable();
+  }
+
+  getDevices() {
+    this.http.get<Device[]>(url).subscribe({
+      next: (res) => {
+        this.devices = res;
+        this.updateCategoriesUpdated();
+      },
+      error: (err) => {
+        this.devicesUpdated.error(err);
+      },
+    });
   }
 }

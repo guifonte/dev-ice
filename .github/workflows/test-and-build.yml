@@ -4,7 +4,7 @@ name: Test-Build
 on:
   pull_request:
   push:
-    branches: [main, beta, develop]
+    branches: [main, beta]
 
 jobs:
   test:

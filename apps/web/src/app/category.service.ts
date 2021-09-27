@@ -14,6 +14,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
+  private updateCategoriesUpdated() {
+    this.categoriesUpdated.next([...this.categories]);
+  }
+
   getCategoriesUpdateListener() {
     return this.categoriesUpdated.asObservable();
   }
@@ -21,14 +25,14 @@ export class CategoryService {
   getCategories() {
     this.http.get<Category[]>(url).subscribe((res) => {
       this.categories = res;
-      this.categoriesUpdated.next([...this.categories]);
+      this.updateCategoriesUpdated();
     });
   }
 
   createCategory(createCategoryDTO: CreateCategoryDTO) {
     this.http.post<Category>(url, createCategoryDTO).subscribe((res) => {
       this.categories = [...this.categories, res];
-      this.categoriesUpdated.next([...this.categories]);
+      this.updateCategoriesUpdated();
     });
   }
 

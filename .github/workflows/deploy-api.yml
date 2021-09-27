@@ -3,7 +3,7 @@ name: Deploy API container to AWS Elastic Beanstalk
 on:
   push:
     branches:
-      - develop
+      - main
     paths:
       - 'apps/api/**'
 

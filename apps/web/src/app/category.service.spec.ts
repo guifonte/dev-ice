@@ -33,9 +33,16 @@ describe('CategoryService', () => {
     it('should return [] if server respond with []', (done) => {
       const expectedCategories: Category[] = [];
 
-      service.getCategories().subscribe((categories) => {
-        expect(categories).toEqual(expectedCategories);
-        done();
+      service.getCategories().subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual(expectedCategories);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
       });
 
       const req = httpTestingController.expectOne('/api/categories');
@@ -46,9 +53,16 @@ describe('CategoryService', () => {
     it('should return a list with one category if server respond with a list with one category', (done) => {
       const expectedCategories: Category[] = [mockCategory()];
 
-      service.getCategories().subscribe((categories) => {
-        expect(categories).toEqual(expectedCategories);
-        done();
+      service.getCategories().subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual(expectedCategories);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
       });
 
       const req = httpTestingController.expectOne('/api/categories');
@@ -62,9 +76,16 @@ describe('CategoryService', () => {
       const mockedDTO: CreateCategoryDTO = mockCreateCategoryDTO();
       const expectedCategory: Category = { id: mockId(), ...mockedDTO };
 
-      service.createCategory(mockedDTO).subscribe((categories) => {
-        expect(categories).toEqual(expectedCategory);
-        done();
+      service.createCategory(mockedDTO).subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual(expectedCategory);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
       });
 
       const req = httpTestingController.expectOne('/api/categories');

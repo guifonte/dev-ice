@@ -3,12 +3,12 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
 
-import { CategoryService } from './category.service';
 import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 import { mockCategory, mockCreateCategoryDTO, mockId } from '@dev-ice/testing';
-import { Observable, Subscription } from 'rxjs';
-import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CategoryService } from './category.service';
 import { ErrorInterceptor } from './error-interceptor';
 
 import { environment as env } from '../environments/environment';

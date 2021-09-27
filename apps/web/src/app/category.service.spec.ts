@@ -93,4 +93,27 @@ describe('CategoryService', () => {
       req.flush(expectedCategory);
     });
   });
+
+  describe('deleteCategory', () => {
+    it('should return nothing if server delete the category', (done) => {
+      const mockedId = mockId();
+      service.deleteCategory(mockedId).subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual(null);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
+      });
+
+      const req = httpTestingController.expectOne(
+        `/api/categories/${mockedId}`
+      );
+      expect(req.request.method).toEqual('DELETE');
+      req.flush(null);
+    });
+  });
 });

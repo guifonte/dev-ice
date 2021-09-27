@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch --no-tags --prune --depth=1 origin main
+      # - run: git fetch --no-tags --prune --depth=1 origin main
       - run: yarn install
-      - run: yarn nx affected --target=test --parallel
+      - run: yarn nx run-many --all --target=test --parallel
+      # - run: yarn nx affected --target=test --parallel
 
   build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch --no-tags --prune --depth=1 origin main
+      # - run: git fetch --no-tags --prune --depth=1 origin main
       - run: yarn install
-      - run: yarn nx affected --target=build --prod --parallel
+      - run: yarn nx run-many --all --target=build --prod --parallel
+      # - run: yarn nx affected --target=build --prod --parallel

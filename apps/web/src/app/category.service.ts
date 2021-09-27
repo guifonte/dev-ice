@@ -17,4 +17,8 @@ export class CategoryService {
   createCategory(createCategoryDTO: CreateCategoryDTO) {
     return this.http.post<Category[]>(url, createCategoryDTO);
   }
+
+  deleteCategory(id: number) {
+    return this.http.delete<void>(`${url}/${id}`);
+  }
 }

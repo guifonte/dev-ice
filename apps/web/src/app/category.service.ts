@@ -37,9 +37,14 @@ export class CategoryService {
   }
 
   createCategory(createCategoryDTO: CreateCategoryDTO) {
-    this.http.post<Category>(url, createCategoryDTO).subscribe((res) => {
-      this.categories = [...this.categories, res];
-      this.updateCategoriesUpdated();
+    this.http.post<Category>(url, createCategoryDTO).subscribe({
+      next: (res) => {
+        this.categories = [...this.categories, res];
+        this.updateCategoriesUpdated();
+      },
+      error: (err) => {
+        this.categoriesUpdated.error(err);
+      },
     });
   }
 

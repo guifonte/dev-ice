@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dev-ice/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@dev-ice/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@dev-ice/testing": ["libs/testing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

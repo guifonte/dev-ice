@@ -47,4 +47,16 @@ export class DeviceService {
       },
     });
   }
+
+  deleteDevice(id: number) {
+    this.http.delete<void>(`${url}/${id}`).subscribe({
+      next: () => {
+        this.devices = this.devices.filter((dev) => dev.id !== id);
+        this.updateDevicesUpdated();
+      },
+      error: (err) => {
+        this.devicesUpdated.error(err);
+      },
+    });
+  }
 }

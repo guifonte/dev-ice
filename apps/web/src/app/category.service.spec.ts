@@ -9,6 +9,8 @@ import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 import { mockCategory, mockCreateCategoryDTO, mockId } from '@dev-ice/testing';
 import { Observable, Subscription } from 'rxjs';
 
+const url = '/api/categories';
+
 describe('CategoryService', () => {
   let httpTestingController: HttpTestingController;
   let service: CategoryService;
@@ -51,7 +53,7 @@ describe('CategoryService', () => {
 
       service.getCategories();
 
-      const req = httpTestingController.expectOne('/api/categories');
+      const req = httpTestingController.expectOne(url);
       expect(req.request.method).toEqual('GET');
       req.flush(expectedCategories);
     });
@@ -72,7 +74,7 @@ describe('CategoryService', () => {
 
       service.getCategories();
 
-      const req = httpTestingController.expectOne('/api/categories');
+      const req = httpTestingController.expectOne(url);
       expect(req.request.method).toEqual('GET');
       req.flush(expectedCategories);
     });
@@ -97,7 +99,7 @@ describe('CategoryService', () => {
 
       service.createCategory(mockedDTO);
 
-      const req = httpTestingController.expectOne('/api/categories');
+      const req = httpTestingController.expectOne(url);
       expect(req.request.method).toEqual('POST');
       req.flush(expectedCategory);
     });
@@ -110,7 +112,7 @@ describe('CategoryService', () => {
       service.createCategory(mockedDTO);
       service.createCategory(mockedDTO);
 
-      const req = httpTestingController.match('/api/categories');
+      const req = httpTestingController.match(url);
       expect(req.length).toBe(2);
       expect(req[0].request.method).toEqual('POST');
       req[0].flush(expectedCategory);
@@ -152,9 +154,7 @@ describe('CategoryService', () => {
 
       service.deleteCategory(mockedId);
 
-      const req = httpTestingController.expectOne(
-        `/api/categories/${mockedId}`
-      );
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
       expect(req.request.method).toEqual('DELETE');
       req.flush(null);
     });
@@ -180,9 +180,7 @@ describe('CategoryService', () => {
 
       service.deleteCategory(mockedId);
 
-      const req = httpTestingController.expectOne(
-        `/api/categories/${mockedId}`
-      );
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
       expect(req.request.method).toEqual('DELETE');
       req.flush(null);
     });

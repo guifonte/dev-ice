@@ -17,13 +17,13 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfilee
+        run: yarn install --frozen-lockfile
 
       - name: Generate Report for each project
         run: yarn nx run-many --all --target=test --codeCoverage --passWithNoTests --runInBand --no-cache
 
       - name: Generate Report for whole monorepo
-        run: yarn jest --coverage
+        run: yarn jest --coverage --runInBand
 
       - name: Shutdown Ubuntu MySQL (SUDO)
         run: sudo service mysql stop

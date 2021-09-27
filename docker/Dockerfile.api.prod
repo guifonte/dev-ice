@@ -1,10 +1,6 @@
 FROM node:16-alpine
 WORKDIR /usr/app
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
 COPY . ./
-RUN yarn nx build api --prod
 
-CMD ["node", "dist/apps/api/main.js"]
+CMD ["node", "main.js"]
 EXPOSE 8080

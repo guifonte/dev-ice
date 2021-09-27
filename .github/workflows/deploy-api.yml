@@ -14,11 +14,21 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build API
+        run: yarn nx build api --prod
+
       - name: Move Dockerfile to root
-        run: mv docker/Dockerfile.api.prod Dockerfile
+        run: cp docker/Dockerfile.api.prod dist/apps/api/Dockerfile
 
       - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+        run: cd dist/apps/api; zip -r deploy.zip . -x '*.git*'; cd ../../..
 
       - name: Get timestamp
         uses: gerred/actions/current-time@master

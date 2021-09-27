@@ -26,7 +26,10 @@ export class CategoryService {
   }
 
   createCategory(createCategoryDTO: CreateCategoryDTO) {
-    return this.http.post<Category[]>(url, createCategoryDTO);
+    this.http.post<Category>(url, createCategoryDTO).subscribe((res) => {
+      this.categories = [...this.categories, res];
+      this.categoriesUpdated.next([...this.categories]);
+    });
   }
 
   deleteCategory(id: number) {

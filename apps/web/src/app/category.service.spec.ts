@@ -7,10 +7,13 @@ import {
 import { CategoryService } from './category.service';
 import { Category, CreateCategoryDTO } from '@dev-ice/domain';
 import { mockCategory, mockCreateCategoryDTO, mockId } from '@dev-ice/testing';
+import { Observable, Subscription } from 'rxjs';
 
 describe('CategoryService', () => {
   let httpTestingController: HttpTestingController;
   let service: CategoryService;
+  let categoriesUpdateListener: Observable<Category[]>;
+  let categorySubs: Subscription;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,10 +22,12 @@ describe('CategoryService', () => {
     });
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CategoryService);
+    categoriesUpdateListener = service.getCategoriesUpdateListener();
   });
 
   afterEach(() => {
     httpTestingController.verify();
+    categorySubs?.unsubscribe();
   });
 
   it('should be created', () => {
@@ -32,8 +37,7 @@ describe('CategoryService', () => {
   describe('getCategories', () => {
     it('should return [] if server respond with []', (done) => {
       const expectedCategories: Category[] = [];
-
-      service.getCategories().subscribe({
+      categorySubs = categoriesUpdateListener.subscribe({
         next: (value) => {
           try {
             expect(value).toEqual(expectedCategories);
@@ -44,6 +48,8 @@ describe('CategoryService', () => {
         },
         error: (err) => done(err),
       });
+
+      service.getCategories();
 
       const req = httpTestingController.expectOne('/api/categories');
       expect(req.request.method).toEqual('GET');
@@ -52,8 +58,7 @@ describe('CategoryService', () => {
 
     it('should return a list with one category if server respond with a list with one category', (done) => {
       const expectedCategories: Category[] = [mockCategory()];
-
-      service.getCategories().subscribe({
+      categorySubs = categoriesUpdateListener.subscribe({
         next: (value) => {
           try {
             expect(value).toEqual(expectedCategories);
@@ -64,6 +69,8 @@ describe('CategoryService', () => {
         },
         error: (err) => done(err),
       });
+
+      service.getCategories();
 
       const req = httpTestingController.expectOne('/api/categories');
       expect(req.request.method).toEqual('GET');

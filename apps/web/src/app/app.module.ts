@@ -9,6 +9,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PrimengModule } from './primeng.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    PrimengModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

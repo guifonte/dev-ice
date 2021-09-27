@@ -5,8 +5,8 @@ import {
 } from '@angular/common/http/testing';
 
 import { CategoryService } from './category.service';
-import { Category } from '@dev-ice/domain';
-import { mockCategory } from '@dev-ice/testing';
+import { Category, CreateCategoryDTO } from '@dev-ice/domain';
+import { mockCategory, mockCreateCategoryDTO, mockId } from '@dev-ice/testing';
 
 describe('CategoryService', () => {
   let httpTestingController: HttpTestingController;
@@ -54,6 +54,22 @@ describe('CategoryService', () => {
       const req = httpTestingController.expectOne('/api/categories');
       expect(req.request.method).toEqual('GET');
       req.flush(expectedCategories);
+    });
+  });
+
+  describe('createCategory', () => {
+    it('should return a category if server respond with a category', (done) => {
+      const mockedDTO: CreateCategoryDTO = mockCreateCategoryDTO();
+      const expectedCategory: Category = { id: mockId(), ...mockedDTO };
+
+      service.createCategory(mockedDTO).subscribe((categories) => {
+        expect(categories).toEqual(expectedCategory);
+        done();
+      });
+
+      const req = httpTestingController.expectOne('/api/categories');
+      expect(req.request.method).toEqual('POST');
+      req.flush(expectedCategory);
     });
   });
 });

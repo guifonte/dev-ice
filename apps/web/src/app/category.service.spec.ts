@@ -132,12 +132,16 @@ describe('CategoryService', () => {
   });
 
   describe('deleteCategory', () => {
-    it('should return nothing if server delete the category', (done) => {
-      const mockedId = mockId();
-      service.deleteCategory(mockedId).subscribe({
+    it('should return empty array if server delete the only category', (done) => {
+      const mockedCat = mockCategory();
+      const mockedId = mockedCat.id;
+
+      Reflect.set(service, 'categories', [mockedCat]);
+
+      categorySubs = categoriesUpdateListener.subscribe({
         next: (value) => {
           try {
-            expect(value).toEqual(null);
+            expect(value).toEqual([]);
             done();
           } catch (error) {
             done(error);
@@ -145,6 +149,36 @@ describe('CategoryService', () => {
         },
         error: (err) => done(err),
       });
+
+      service.deleteCategory(mockedId);
+
+      const req = httpTestingController.expectOne(
+        `/api/categories/${mockedId}`
+      );
+      expect(req.request.method).toEqual('DELETE');
+      req.flush(null);
+    });
+
+    it('should delete only the asked category', (done) => {
+      const mockedCat = mockCategory();
+      const mockedId = mockedCat.id;
+      const mockedCat2 = mockCategory();
+
+      Reflect.set(service, 'categories', [mockedCat, mockedCat2]);
+
+      categorySubs = categoriesUpdateListener.subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual([mockedCat2]);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
+      });
+
+      service.deleteCategory(mockedId);
 
       const req = httpTestingController.expectOne(
         `/api/categories/${mockedId}`

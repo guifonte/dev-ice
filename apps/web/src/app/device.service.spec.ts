@@ -15,6 +15,7 @@ import {
   fromMockedDeviceToMockedCreateDeviceDTO,
   mockCreateDeviceDTO,
   mockDevice,
+  mockId,
 } from '@dev-ice/testing';
 
 const url = env.baseURL + '/api/devices';
@@ -187,6 +188,81 @@ describe('DeviceService', () => {
 
       const req = httpTestingController.expectOne(url);
       expect(req.request.method).toEqual('POST');
+      const emsg = 'deliberate 404 error';
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    });
+  });
+
+  describe('deleteDevice', () => {
+    it('should return empty array if server delete the only device', (done) => {
+      const mockedDevice = mockDevice();
+      const mockedId = mockedDevice.id;
+
+      Reflect.set(service, 'devices', [mockedDevice]);
+
+      deviceSubs = devicesUpdateListener.subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual([]);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
+      });
+
+      service.deleteDevice(mockedId);
+
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
+      expect(req.request.method).toEqual('DELETE');
+      req.flush(null);
+    });
+
+    it('should delete only the asked device', (done) => {
+      const mockedDevice = mockDevice();
+      const mockedId = mockedDevice.id;
+      const mockedDevice2 = mockDevice();
+
+      Reflect.set(service, 'devices', [mockedDevice, mockedDevice2]);
+
+      deviceSubs = devicesUpdateListener.subscribe({
+        next: (value) => {
+          try {
+            expect(value).toEqual([mockedDevice2]);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        },
+        error: (err) => done(err),
+      });
+
+      service.deleteDevice(mockedId);
+
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
+      expect(req.request.method).toEqual('DELETE');
+      req.flush(null);
+    });
+
+    it('should return error to subscription', (done) => {
+      const mockedId = mockId();
+
+      deviceSubs = devicesUpdateListener.subscribe({
+        next: () => {
+          done('should not be here');
+        },
+        error: (err: HttpErrorResponse) => {
+          expect(err.status).toEqual(404);
+          expect(err.error).toEqual(emsg);
+          done();
+        },
+      });
+
+      service.deleteDevice(mockedId);
+
+      const req = httpTestingController.expectOne(`${url}/${mockedId}`);
+      expect(req.request.method).toEqual('DELETE');
       const emsg = 'deliberate 404 error';
       req.flush(emsg, { status: 404, statusText: 'Not Found' });
     });

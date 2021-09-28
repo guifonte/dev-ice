@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PrimengModule } from './primeng.module';
 import { MainContainerComponent } from './main-container/main-container.component';
+import { EllipsableTextComponent } from './ellipsable-text/ellipsable-text.component';
+import { TableToolbarComponent } from './table-toolbar/table-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { MainContainerComponent } from './main-container/main-container.componen
     DeviceListComponent,
     HeaderComponent,
     MainContainerComponent,
+    EllipsableTextComponent,
+    TableToolbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PrimengModule } from './primeng.module';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { EllipsableTextComponent } from './ellipsable-text/ellipsable-text.component';
+import { EllipsisDirective } from './ellipsable-text/ellipsis.directive';
 import { TableToolbarComponent } from './table-toolbar/table-toolbar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,14 @@ import { TableToolbarComponent } from './table-toolbar/table-toolbar.component';
     HeaderComponent,
     MainContainerComponent,
     EllipsableTextComponent,
+    EllipsisDirective,
     TableToolbarComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     PrimengModule,
   ],

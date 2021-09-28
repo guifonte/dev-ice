@@ -80,7 +80,7 @@ Github Actions came to the rescue and was used through the whole project. It is 
 It was choosen the use PrimeNg/Primeflex/Primeicons as UI library. Although some customizations were needed, it was very productive, considering that most of its components are responsive out of the box:
 
 <span style="text-align: left;"><img src="docs/dev-ice-mobile-menu.png" width="140"></span>
-<span style="text-align: left;"><img src="docs/dev-ice-mobile-menu.png" width="140"></span>
+<span style="text-align: left;"><img src="docs/dev-ice-mobile-table.png" width="140"></span>
 <span style="text-align: left;"><img src="docs/dev-ice-desktop.png" width="480"></span>
 
 ## Development Environment

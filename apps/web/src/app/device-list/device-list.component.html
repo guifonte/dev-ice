@@ -1,6 +1,6 @@
 <dev-ice-main-container headerText="Device Management">
   <dev-ice-table-toolbar
-    (createEvent)="createDevice()"
+    (createEvent)="showCreateDialog()"
     class="align-self-stretch mb-4"
   ></dev-ice-table-toolbar>
   <p-table
@@ -54,3 +54,46 @@
   </p-table>
 </dev-ice-main-container>
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-dialog
+  header="Title"
+  [(visible)]="displayCreateModal"
+  [modal]="true"
+  [closable]="false"
+>
+  <ng-template pTemplate="header">
+    <h2>Add New Device</h2>
+  </ng-template>
+  <span class="p-float-label">
+    <p-inputNumber [(ngModel)]="newPartNumber" [min]="1"></p-inputNumber>
+    <label for="float-input">PartNumber</label>
+  </span>
+  <span class="p-float-label">
+    <input
+      id="float-input"
+      type="text"
+      pInputText
+      [(ngModel)]="newColor"
+      maxlength="16"
+      minlength="1"
+    />
+    <label for="float-input">Color</label>
+  </span>
+
+  <p-dropdown
+    [options]="categories"
+    [(ngModel)]="selectedCategory"
+    optionLabel="name"
+  ></p-dropdown>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      (click)="hideCreateDialog()"
+      class="p-button-warning p-button-terciary"
+    >
+      Cancel
+    </button>
+    <button pButton (click)="createDevice()" class="">Add</button>
+  </ng-template>
+</p-dialog>

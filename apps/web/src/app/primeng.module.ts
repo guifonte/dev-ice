@@ -8,6 +8,9 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
@@ -21,6 +24,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     ToolbarModule,
     DialogModule,
     InputTextModule,
+    InputNumberModule,
+    DropdownModule,
   ],
   providers: [MessageService, ConfirmationService],
 })

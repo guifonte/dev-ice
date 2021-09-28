@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
-import { Device } from '@dev-ice/domain';
+import { Category, Device } from '@dev-ice/domain';
 import { DeviceService } from '../device.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'dev-ice-device-list',
@@ -13,15 +14,22 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class DeviceListComponent implements OnInit, OnDestroy {
   devices: Device[] = [];
+  categories: Category[] = [];
 
   loading = false;
-
+  displayCreateModal = false;
+  newColor = '';
+  newPartNumber = 0;
+  selectedCategory!: Category;
   private deviceSub!: Subscription;
+  private categorySub!: Subscription;
+
   constructor(
     public deviceService: DeviceService,
     private titleService: Title,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private categoryService: CategoryService
   ) {
     this.titleService.setTitle(
       'Categories | Dev-ice - Your devices organized and safe in the Cloud'
@@ -49,6 +57,10 @@ export class DeviceListComponent implements OnInit, OnDestroy {
       },
     });
     this.deviceService.getDevices();
+    this.categorySub = this.categoryService
+      .getCategoriesUpdateListener()
+      .subscribe((categories) => (this.categories = categories));
+    this.categoryService.getCategories();
   }
 
   deleteDevice(id: number) {
@@ -63,10 +75,22 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   }
 
   createDevice() {
-    console.log('created');
+    this.deviceService.createDevice({
+      partNumber: this.newPartNumber,
+      color: this.newColor,
+      categoryId: this.selectedCategory.id,
+    });
   }
 
+  showCreateDialog() {
+    this.displayCreateModal = true;
+  }
+
+  hideCreateDialog() {
+    this.displayCreateModal = false;
+  }
   ngOnDestroy(): void {
     this.deviceSub.unsubscribe();
+    this.categorySub.unsubscribe();
   }
 }

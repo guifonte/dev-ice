@@ -10,6 +10,7 @@ import { DeviceListComponent } from './device-list/device-list.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PrimengModule } from './primeng.module';
+import { MainContainerComponent } from './main-container/main-container.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PrimengModule } from './primeng.module';
     CategoryListComponent,
     DeviceListComponent,
     HeaderComponent,
+    MainContainerComponent,
   ],
   imports: [
     BrowserModule,

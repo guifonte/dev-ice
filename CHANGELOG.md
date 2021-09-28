@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/guifonte/dev-ice/compare/v1.3.0...v1.3.1) (2021-09-28)
+
+### Bug Fixes
+
+- **web:** fix forms interface ([86294f5](https://github.com/guifonte/dev-ice/commit/86294f5bfd2ce0f6023c4d048f5f92e30b78cc7a))
+
 # [1.3.0](https://github.com/guifonte/dev-ice/compare/v1.2.0...v1.3.0) (2021-09-28)
 
 ### Bug Fixes

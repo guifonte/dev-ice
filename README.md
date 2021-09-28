@@ -5,7 +5,11 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-<p style="text-align: center;"><img src="docs/device-logo.svg" width="450"></p>
+<p style="text-align: left;"><img src="docs/device-logo.svg" width="450"></p>
+
+## Figma
+
+[The draft of the design](https://www.figma.com/file/d3sxMLD2WdYIjqQmLfopTx/Dev-Ice) is accessible through the Figma Web App. It was used the Design Library [PrimeOne](https://www.figma.com/community/file/890589747170608208) from Primefaces, the base of PrimeNg, the library used in this project.
 
 ## Requirements
 

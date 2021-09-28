@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { Category } from '@dev-ice/domain';
 import { CategoryService } from '../category.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'dev-ice-category-list',

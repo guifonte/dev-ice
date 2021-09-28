@@ -1,3 +1,9 @@
+# [1.3.0-beta.2](https://github.com/guifonte/dev-ice/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2021-09-28)
+
+### Features
+
+- **web:** add form to create device and category ([78dc21b](https://github.com/guifonte/dev-ice/commit/78dc21b16f6b1d2585c26a3b9bf2346f21112f61))
+
 # [1.3.0-beta.1](https://github.com/guifonte/dev-ice/compare/v1.2.0...v1.3.0-beta.1) (2021-09-28)
 
 ### Bug Fixes

@@ -12,6 +12,7 @@ import { CategoryService } from './category.service';
 import { ErrorInterceptor } from './error-interceptor';
 
 import { environment as env } from '../environments/environment';
+import { MessageService } from 'primeng/api';
 
 const url = env.baseURL + '/api/categories';
 
@@ -26,6 +27,7 @@ describe('CategoryService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         CategoryService,
+        MessageService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ErrorInterceptor,
@@ -36,13 +38,11 @@ describe('CategoryService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CategoryService);
     categoriesUpdateListener = service.getCategoriesUpdateListener();
-    window.alert = jest.fn();
   });
 
   afterEach(() => {
     httpTestingController.verify();
     categorySubs?.unsubscribe();
-    // window.alert.mockClear() // ts-ignore
   });
 
   it('should be created', () => {

@@ -17,6 +17,7 @@ import {
   mockDevice,
   mockId,
 } from '@dev-ice/testing';
+import { MessageService } from 'primeng/api';
 
 const url = env.baseURL + '/api/devices';
 
@@ -31,6 +32,7 @@ describe('DeviceService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         DeviceService,
+        MessageService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ErrorInterceptor,
@@ -41,7 +43,6 @@ describe('DeviceService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(DeviceService);
     devicesUpdateListener = service.getDevicesUpdateListener();
-    window.alert = jest.fn();
   });
 
   afterEach(() => {

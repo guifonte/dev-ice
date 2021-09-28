@@ -1,3 +1,40 @@
+# [1.3.0-beta.1](https://github.com/guifonte/dev-ice/compare/v1.2.0...v1.3.0-beta.1) (2021-09-28)
+
+### Bug Fixes
+
+- **domain:** change from class to inteface ([9895086](https://github.com/guifonte/dev-ice/commit/98950860e32dfe87b489e89d6781c0257887b2c8))
+- **web:** comment the annoying alert ([6818a05](https://github.com/guifonte/dev-ice/commit/6818a051c50fcb72e3780a8fbef17043aebd2249))
+- **web:** fix logo name ([749e9d9](https://github.com/guifonte/dev-ice/commit/749e9d9aaaaffe7bdec0e5f2fe131c530a6ffda7))
+- **web:** fix position of the favicon file ([7800b9f](https://github.com/guifonte/dev-ice/commit/7800b9f42df6f5a55cc09cda21eaa9761ae302a3))
+
+### Features
+
+- **domain:** add new models to the domain, fix category.model file name and remove api-interfaces ([167fc59](https://github.com/guifonte/dev-ice/commit/167fc596ad702676a2c6b44dee4b79195b9b7b5c))
+- **web:** add custom title to the pages ([4d661a6](https://github.com/guifonte/dev-ice/commit/4d661a6d550032fdae2cb28af32c5437593a2ca8))
+- **web:** add main container to format the main section of the page ([ed51edd](https://github.com/guifonte/dev-ice/commit/ed51edd6d32037398c16568fac7e7a2f124abe8c))
+- **web:** add main semantic html tag ([446de6e](https://github.com/guifonte/dev-ice/commit/446de6e1cc43e52df63069fac35fb840c98ac234))
+- **web:** add modal for adding categories ([3cba272](https://github.com/guifonte/dev-ice/commit/3cba272c194d194a15ce4a25aeda634c3fd40d7d))
+- **web:** add responsive github button to the header ([d456706](https://github.com/guifonte/dev-ice/commit/d45670673a477d065d3be54868400e2ff5213626))
+- **web:** add table to devices ([fd65f95](https://github.com/guifonte/dev-ice/commit/fd65f95873befba111a8e8670b570ba068cc065a))
+- **web:** add table toolbar component ([9d8164d](https://github.com/guifonte/dev-ice/commit/9d8164d12b6d25f1907b93a4c1f14a15c0bace83))
+- **web:** add toast and message service ([9b94aac](https://github.com/guifonte/dev-ice/commit/9b94aac11110d4cac762a261981d2ba6a28b4bae))
+- **web:** change title and change nx logo to dev-ice logo ([9437e97](https://github.com/guifonte/dev-ice/commit/9437e97e7dbfbed772d82c352691c4f068b11603))
+- **web:** comment modal code ([9fb6d0b](https://github.com/guifonte/dev-ice/commit/9fb6d0bdea1bd089d5be84676380130dfbbdeeaa))
+- **web:** configure app to use primeng ([4855ad3](https://github.com/guifonte/dev-ice/commit/4855ad319450a5439dc1b3641dde391363d71f59))
+- **web:** configure basic scaffold of device.service ([4c208f2](https://github.com/guifonte/dev-ice/commit/4c208f243b61fdde0f17aab5bdfee694cff51bbd))
+- **web:** create directive and component for ellipsable text ([96d3e7c](https://github.com/guifonte/dev-ice/commit/96d3e7c39629ecb8c7db96fd7cdf0f4e10f3ebc9))
+- **web:** ensure CategoryService createCategory handles error ([2478cbb](https://github.com/guifonte/dev-ice/commit/2478cbb002aadb4bf4068fa31b7b340d8da831f2))
+- **web:** ensure DeviceService handles correctly getDevices ([7dcf1a0](https://github.com/guifonte/dev-ice/commit/7dcf1a057ca7cd18d9a49bb897c6740828578e34))
+- **web:** ensure DeviceService handles createDevice correctly ([f4b498a](https://github.com/guifonte/dev-ice/commit/f4b498abdb6b70b0630fd79a5ccf73263ace6cdd))
+- **web:** ensure DeviceService handles deleteDevice correctly ([42b2ce1](https://github.com/guifonte/dev-ice/commit/42b2ce1d2ef14020ccaed036ebaddcf7ed4b127e))
+- **web:** format error message ([de15bae](https://github.com/guifonte/dev-ice/commit/de15bae6df499bc05d8ab3aac06c426a1522b29f))
+- **web:** generate default modules and components ([c5c94f7](https://github.com/guifonte/dev-ice/commit/c5c94f7131f8e4613b54bca9d88139d78f97c13b))
+- **web:** implement the header, with responsiveness ([528c2c0](https://github.com/guifonte/dev-ice/commit/528c2c0c6317db529e771346fc5fa06ddf58122e))
+- **web:** make category-list subscribe to category service and show the list of category ([681a751](https://github.com/guifonte/dev-ice/commit/681a751e30057a24c3a697d473e1c5e37f32f462))
+- **web:** make device-list subscribe to device service and show the list of devices ([3f970f5](https://github.com/guifonte/dev-ice/commit/3f970f52e6bf382259ff103a875336b0cac6d6cd))
+- **web:** make header consume router provider ([20c2d2b](https://github.com/guifonte/dev-ice/commit/20c2d2b2e257cee6067369afc35579da16217f5e))
+- **web:** wire components together with the router ([0a92622](https://github.com/guifonte/dev-ice/commit/0a9262247ac481964572fb03769948bde13031a4))
+
 # [1.2.0](https://github.com/guifonte/dev-ice/compare/v1.1.0...v1.2.0) (2021-09-27)
 
 ### Bug Fixes

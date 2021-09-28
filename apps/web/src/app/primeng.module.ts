@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
+import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     ToastModule,
     ConfirmDialogModule,
     TableModule,
+    ToolbarModule,
   ],
   providers: [MessageService, ConfirmationService],
 })

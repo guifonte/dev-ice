@@ -19,7 +19,7 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   loading = false;
   displayCreateModal = false;
   newColor = '';
-  newPartNumber = 0;
+  newPartNumber!: number;
   selectedCategory!: Category;
   private deviceSub!: Subscription;
   private categorySub!: Subscription;
@@ -32,7 +32,7 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService
   ) {
     this.titleService.setTitle(
-      'Categories | Dev-ice - Your devices organized and safe in the Cloud'
+      'Devices | Dev-ice - Your devices organized and safe in the Cloud'
     );
   }
 

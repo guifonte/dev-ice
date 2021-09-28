@@ -1,7 +1,56 @@
 <dev-ice-main-container headerText="Device Management">
-  <ul>
-    <li *ngFor="let device of devices">
-      {{ device.partNumber }} {{ device.color }} {{ device.category.name }}
-    </li>
-  </ul>
+  <dev-ice-table-toolbar
+    (createEvent)="createDevice()"
+    class="align-self-stretch mb-4"
+  ></dev-ice-table-toolbar>
+  <p-table
+    [value]="devices"
+    responsiveLayout="stack"
+    breakpoint="576px"
+    class="w-full"
+    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+  >
+    <ng-template pTemplate="caption"> Device List </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Part Number</th>
+        <th>Color</th>
+        <th>Category</th>
+        <th class="w-5rem text-center">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-device let-columns="columns">
+      <tr>
+        <td>
+          <span class="p-column-title"
+            >Part Number<span class="mr-2"></span></span
+          ><dev-ice-ellipsable-text>{{
+            device.partNumber
+          }}</dev-ice-ellipsable-text>
+        </td>
+        <td>
+          <span class="p-column-title">Color<span class="mr-2"></span> </span>
+          <dev-ice-ellipsable-text>{{ device.color }}</dev-ice-ellipsable-text>
+        </td>
+        <td>
+          <span class="p-column-title">Category<span class="mr-2"></span></span
+          ><dev-ice-ellipsable-text>{{
+            device.category.name
+          }}</dev-ice-ellipsable-text>
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">Delete</span
+          ><button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            (click)="deleteDevice(device.id)"
+            class="table-btn p-button-sm p-button-rounded p-button-warning"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </dev-ice-main-container>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

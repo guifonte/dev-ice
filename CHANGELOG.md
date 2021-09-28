@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/guifonte/dev-ice/compare/v1.3.1...v1.3.2) (2021-09-28)
+
+### Bug Fixes
+
+- **web:** fix github button in small screens and add routerLink to logo ([14d8dcf](https://github.com/guifonte/dev-ice/commit/14d8dcf5f8ba1a55db408902a67d6c822223127e))
+
 ## [1.3.1](https://github.com/guifonte/dev-ice/compare/v1.3.0...v1.3.1) (2021-09-28)
 
 ### Bug Fixes

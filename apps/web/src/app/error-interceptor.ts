@@ -17,9 +17,13 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log(error);
-        this.messageService.add({severity:'error', summary: 'Something wrong happened', detail: error.message, life: 3000})
+        const message = error.error.message ?? 'Try Again Later!'
+        this.messageService.add({severity:'error', summary: 'Something wrong happened', detail: message, life: 3000})
         return throwError(() => error);
       })
     );
   }
 }
+
+// ,
+// "node_modules/primeflex/primeflex.css"

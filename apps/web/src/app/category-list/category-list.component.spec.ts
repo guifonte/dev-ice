@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { CategoryService } from '../category.service';
 
 import { CategoryListComponent } from './category-list.component';
@@ -12,7 +13,7 @@ describe('CategoryListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule],
       declarations: [CategoryListComponent],
-      providers: [CategoryService],
+      providers: [CategoryService, ConfirmationService, MessageService],
     }).compileComponents();
   });
 

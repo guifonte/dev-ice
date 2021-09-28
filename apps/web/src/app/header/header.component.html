@@ -1,15 +1,49 @@
 <header>
   <p-menubar [model]="items">
     <ng-template pTemplate="start">
-      <div class="flex align-items-end">
-        <img
-          src="/assets/logo.svg"
-          class="m-2 sm:m-3 mr-5 h-2rem sm:h-4rem"
-          alt="brand logo"
-        />
+      <div
+        class="
+          flex
+          align-items-center
+          justify-content-between
+          sm:align-items-end sm:justify-content-start
+        "
+      >
+        <a routerLink="./">
+          <img
+            src="/assets/logo.svg"
+            class="m-2 sm:m-3 mr-5 h-2rem sm:h-4rem"
+            alt="brand logo"
+          />
+        </a>
         <nav class="hidden sm:inline-flex">
           <p-tabMenu class="nav-tab px-2" [model]="items"></p-tabMenu>
         </nav>
+        <a
+          href="https://github.com/guifonte/dev-ice"
+          target="_blank"
+          class="no-underline"
+        >
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-github"
+            class="
+              flex
+              sm:hidden
+              p-element
+              p-button-text
+              p-button-rounded
+              p-button-plain
+              p-button-lg
+              p-button
+              p-component
+              p-button-icon-only
+            "
+          ></button>
+        </a>
+        <div class="sm:hidden"></div>
       </div>
     </ng-template>
     <ng-template pTemplate="end">
@@ -24,7 +58,8 @@
           type="button"
           icon="pi pi-github"
           class="
-            github-btn
+            hidden
+            sm:flex
             p-element
             p-button-text
             p-button-rounded

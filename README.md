@@ -7,11 +7,38 @@
 
 <p style="text-align: left;"><img src="docs/device-logo.svg" width="450"></p>
 
+## Overview
+
+This project was for a code challange of Eldorado Institute.
+The idea is to make a simple app to save and delete devices and its categories.
+
+## Tecnologies
+
+- Nest.js
+- Angular
+- MySQL
+- TypeORM
+- Nx
+- PrimeNg/Primeflex
+- AWS RDS
+- AWS Elastic Beanstalk
+- AWS S3
+- Docker
+- Github Actions
+- Codecov
+- Jest
+- Semantic-release
+- Commitizen
+- lint-staged
+- Husky
+- git-commit-msg-linter
+- swagger
+
 ## Figma
 
 [The draft of the design](https://www.figma.com/file/d3sxMLD2WdYIjqQmLfopTx/Dev-Ice) is accessible through the Figma Web App. It was used the Design Library [PrimeOne](https://www.figma.com/community/file/890589747170608208) from Primefaces, the base of PrimeNg, the library used in this project.
 
-## Requirements
+## Development Requirements
 
 This app requires a MySQL database for testing, commiting and pushing. You use a mysql server locally with after creating a user "tester" with password "test" and a database "test", and grant it permission.
 
@@ -23,4 +50,4 @@ You can also run it in interative mode by changing the tag `-d` by `-it`.
 
 > More infos in the [MySQL official image](https://hub.docker.com/_/mysql) in the DockerHub.
 
-This project was generated using [Nx](https://nx.dev).
+[Nx](https://nx.dev)

@@ -1,4 +1,4 @@
-import { IsInt, Length, Matches, Min } from 'class-validator';
+import { IsInt, Length, Matches, Max, Min } from 'class-validator';
 
 export class CreateDeviceDTO {
   @Length(1, 16)
@@ -6,6 +6,7 @@ export class CreateDeviceDTO {
   color: string;
 
   @Min(1)
+  @Max(4294967295)
   @IsInt()
   partNumber: number;
 

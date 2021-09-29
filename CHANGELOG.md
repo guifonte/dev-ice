@@ -1,3 +1,14 @@
+# [1.5.0](https://github.com/guifonte/dev-ice/compare/v1.4.0...v1.5.0) (2021-09-29)
+
+### Bug Fixes
+
+- **web:** fix ellipsable text components ([b437c1f](https://github.com/guifonte/dev-ice/commit/b437c1f7e44066d47583f8228183cac0457df991))
+- **web:** remove grouping from partNumber number input ([3ba699a](https://github.com/guifonte/dev-ice/commit/3ba699a69f6f07dc78d60e683f90b1c7d0e54622))
+
+### Features
+
+- **web:** add validation to the create form fields ([3555bfc](https://github.com/guifonte/dev-ice/commit/3555bfc3887a5999c74aa0e4570e45e1bf2085ab))
+
 # [1.4.0](https://github.com/guifonte/dev-ice/compare/v1.3.2...v1.4.0) (2021-09-29)
 
 ### Features

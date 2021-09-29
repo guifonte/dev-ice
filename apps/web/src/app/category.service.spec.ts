@@ -91,16 +91,19 @@ describe('CategoryService', () => {
       expect(req.request.method).toEqual('GET');
       req.flush(expectedCategories);
     });
+    it('should return empty list(or whaterver it has) to subscription if error', (done) => {
+      // const mockedCat = mockCategory();
+      // const mockedCat2 = mockCategory();
 
-    it('should return error to subscription', (done) => {
+      // Reflect.set(service, 'categories', [mockedCat, mockedCat2]);
+
       categorySubs = categoriesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 
@@ -164,17 +167,20 @@ describe('CategoryService', () => {
 
       req[1].flush(expectedCategory2);
     });
-    it('should return error to subscription', (done) => {
+    it('should return the list it has to subscription if error', (done) => {
       const mockedDTO = mockCreateCategoryDTO();
+      const mockedCat = mockCategory();
+      const mockedCat2 = mockCategory();
+
+      Reflect.set(service, 'categories', [mockedCat, mockedCat2]);
 
       categorySubs = categoriesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([mockedCat, mockedCat2]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 
@@ -239,17 +245,20 @@ describe('CategoryService', () => {
       req.flush(null);
     });
 
-    it('should return error to subscription', (done) => {
-      const mockedId = mockId();
+    it('should return the array of categories it had before the request', (done) => {
+      const mockedCat = mockCategory();
+      const mockedId = mockedCat.id;
+      const mockedCat2 = mockCategory();
+
+      Reflect.set(service, 'categories', [mockedCat, mockedCat2]);
 
       categorySubs = categoriesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([mockedCat, mockedCat2]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 

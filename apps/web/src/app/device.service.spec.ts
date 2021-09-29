@@ -97,15 +97,14 @@ describe('DeviceService', () => {
       req.flush(expectedDevices);
     });
 
-    it('should return error to subscription', (done) => {
+    it('should return empty or whatever it has subscription', (done) => {
       deviceSubs = devicesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 
@@ -171,17 +170,20 @@ describe('DeviceService', () => {
       req[1].flush(mockedDevice2);
     });
 
-    it('should return error to subscription', (done) => {
+    it('should return the list it has to subscription', (done) => {
       const mockedDTO = mockCreateDeviceDTO();
+      const mockedDevice = mockDevice();
+      const mockedDevice2 = mockDevice();
+
+      Reflect.set(service, 'devices', [mockedDevice, mockedDevice2]);
 
       deviceSubs = devicesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([mockedDevice, mockedDevice2]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 
@@ -247,16 +249,19 @@ describe('DeviceService', () => {
     });
 
     it('should return error to subscription', (done) => {
-      const mockedId = mockId();
+      const mockedDevice = mockDevice();
+      const mockedId = mockedDevice.id;
+      const mockedDevice2 = mockDevice();
+
+      Reflect.set(service, 'devices', [mockedDevice, mockedDevice2]);
 
       deviceSubs = devicesUpdateListener.subscribe({
-        next: () => {
-          done('should not be here');
-        },
-        error: (err: HttpErrorResponse) => {
-          expect(err.status).toEqual(404);
-          expect(err.error).toEqual(emsg);
+        next: (res) => {
+          expect(res).toEqual([mockedDevice, mockedDevice2]);
           done();
+        },
+        error: (err) => {
+          done(err);
         },
       });
 

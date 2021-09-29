@@ -65,7 +65,10 @@
     <h2 class="m-0">Add New Device</h2>
   </ng-template>
   <span class="p-float-label mt-4">
-    <p-inputNumber [(ngModel)]="newPartNumber"></p-inputNumber>
+    <p-inputNumber
+      [(ngModel)]="newPartNumber"
+      [useGrouping]="false"
+    ></p-inputNumber>
     <label for="float-input">PartNumber</label>
   </span>
   <span class="p-float-label mt-4 mb-2">
@@ -85,6 +88,7 @@
     class="w-full mt-4"
     [options]="categories"
     [(ngModel)]="selectedCategory"
+    placeholder="Select a Category"
     optionLabel="name"
     id="cat-dropdown"
   ></p-dropdown>

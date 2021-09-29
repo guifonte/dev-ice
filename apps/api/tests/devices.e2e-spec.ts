@@ -222,6 +222,25 @@ describe('DevicesModule (e2e)', () => {
         });
     });
 
+    it('should receive BAD_REQUEST (400) if partNumber is bigger than 4294967295 (max value for unsigned int)', (done) => {
+      const wrongMockedCreateDevDTO = {
+        partNumber: 4294967296324234,
+        color: 'blue',
+        categoryId: mockId(),
+      };
+
+      request(app.getHttpServer())
+        .post('/devices')
+        .send(wrongMockedCreateDevDTO)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body.message[0]).toBe(
+            'partNumber must not be greater than 4294967295'
+          );
+          if (err) return done(err);
+          return done();
+        });
+    });
     it('should receive BAD_REQUEST (400) if color is empty', (done) => {
       const wrongMockedCreateDevDTO = {
         partNumber: mockId(),

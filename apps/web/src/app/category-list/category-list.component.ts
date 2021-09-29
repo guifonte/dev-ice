@@ -15,7 +15,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   loading = false;
   displayCreateModal = false;
-  newCatName!: string;
+  newCatName?: string;
 
   private categorySub!: Subscription;
   constructor(
@@ -59,6 +59,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   hideCreateDialog() {
+    this.newCatName = '';
     this.displayCreateModal = false;
   }
 
@@ -73,9 +74,27 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     });
   }
 
+  private valideteForm(): string {
+    if (!this.newCatName || !this.newCatName.trim())
+      return 'Category Name must not be empty';
+    if (this.newCatName.length > 128)
+      return 'Category Name is too big (max 128)';
+    return '';
+  }
+
   createCategory(): void {
-    this.categoryService.createCategory({ name: this.newCatName });
-    this.newCatName = '';
+    const validateMessage = this.valideteForm();
+    if (this.newCatName && !validateMessage) {
+      this.categoryService.createCategory({ name: this.newCatName });
+      this.hideCreateDialog();
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Fiels not valid!',
+        detail: validateMessage,
+        life: 3000,
+      });
+    }
   }
 
   ngOnDestroy(): void {

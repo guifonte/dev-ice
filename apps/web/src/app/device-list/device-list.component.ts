@@ -19,8 +19,8 @@ export class DeviceListComponent implements OnInit, OnDestroy {
   loading = false;
   displayCreateModal = false;
   newColor = '';
-  newPartNumber!: number;
-  selectedCategory!: Category;
+  newPartNumber?: number;
+  selectedCategory?: Category;
   private deviceSub!: Subscription;
   private categorySub!: Subscription;
 
@@ -74,12 +74,35 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     });
   }
 
+  private valideteForm(): string {
+    if (!this.newColor || !this.newColor.trim())
+      return 'Color must not be empty';
+    if (!this.newPartNumber) return 'PartNumber must not be empty';
+    if (!this.selectedCategory) return 'Please, select a category';
+    if (this.newColor.length > 16) return 'Color is too big (max 16)';
+    if (this.newPartNumber <= 0)
+      return 'Part Number must to be a positive integer';
+    if (this.newPartNumber > 4294967295) return 'Part Number is too big';
+    return '';
+  }
+
   createDevice() {
-    this.deviceService.createDevice({
-      partNumber: this.newPartNumber,
-      color: this.newColor,
-      categoryId: this.selectedCategory.id,
-    });
+    const validateMessage = this.valideteForm();
+    if (this.newPartNumber && this.selectedCategory && !validateMessage) {
+      this.deviceService.createDevice({
+        partNumber: this.newPartNumber,
+        color: this.newColor,
+        categoryId: this.selectedCategory.id,
+      });
+      this.hideCreateDialog();
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Fiels not valid!',
+        detail: validateMessage,
+        life: 3000,
+      });
+    }
   }
 
   showCreateDialog() {
@@ -88,6 +111,9 @@ export class DeviceListComponent implements OnInit, OnDestroy {
 
   hideCreateDialog() {
     this.displayCreateModal = false;
+    this.newColor = '';
+    this.newPartNumber = undefined;
+    this.selectedCategory = undefined;
   }
   ngOnDestroy(): void {
     this.deviceSub.unsubscribe();

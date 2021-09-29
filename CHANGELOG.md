@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/guifonte/dev-ice/compare/v1.3.2...v1.4.0) (2021-09-29)
+
+### Features
+
+- **api:** ensure partNumber is not greater than 4294967295 (max unsigned int value) ([882ec8f](https://github.com/guifonte/dev-ice/commit/882ec8fa6809f24a5f89edc1bdc4f75c189dc27a))
+- **web:** ensure services do not return error to subscribers ([d4e987f](https://github.com/guifonte/dev-ice/commit/d4e987f104b9e391c040c9338b8dc49bdcb29d44))
+
 ## [1.3.2](https://github.com/guifonte/dev-ice/compare/v1.3.1...v1.3.2) (2021-09-28)
 
 ### Bug Fixes

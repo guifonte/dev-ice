@@ -30,8 +30,8 @@ export class DeviceService {
         this.devices = res;
         this.updateDevicesUpdated();
       },
-      error: (err) => {
-        this.devicesUpdated.error(err);
+      error: () => {
+        this.updateDevicesUpdated();
       },
     });
   }
@@ -42,8 +42,8 @@ export class DeviceService {
         this.devices = [...this.devices, res];
         this.updateDevicesUpdated();
       },
-      error: (err) => {
-        this.devicesUpdated.error(err);
+      error: () => {
+        this.updateDevicesUpdated();
       },
     });
   }
@@ -54,8 +54,8 @@ export class DeviceService {
         this.devices = this.devices.filter((dev) => dev.id !== id);
         this.updateDevicesUpdated();
       },
-      error: (err) => {
-        this.devicesUpdated.error(err);
+      error: () => {
+        this.updateDevicesUpdated();
       },
     });
   }

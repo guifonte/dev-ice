@@ -30,8 +30,8 @@ export class CategoryService {
         this.categories = res;
         this.updateCategoriesUpdated();
       },
-      error: (err) => {
-        this.categoriesUpdated.error(err);
+      error: () => {
+        this.updateCategoriesUpdated();
       },
     });
   }
@@ -42,8 +42,8 @@ export class CategoryService {
         this.categories = [...this.categories, res];
         this.updateCategoriesUpdated();
       },
-      error: (err) => {
-        this.categoriesUpdated.error(err);
+      error: () => {
+        this.updateCategoriesUpdated();
       },
     });
   }
@@ -54,8 +54,8 @@ export class CategoryService {
         this.categories = this.categories.filter((cat) => cat.id !== id);
         this.updateCategoriesUpdated();
       },
-      error: (err) => {
-        this.categoriesUpdated.error(err);
+      error: () => {
+        this.updateCategoriesUpdated();
       },
     });
   }

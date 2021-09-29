@@ -6,9 +6,9 @@
   <p-table
     [value]="categories"
     responsiveLayout="scrollable"
-    class="w-full"
     styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
   >
+    <ng-template pTemplate="caption"> Category List </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th>Name</th>
@@ -17,7 +17,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-category>
       <tr>
-        <td myorgIsEllipsis class="text-el">{{ category.name }}</td>
+        <td>
+          <dev-ice-ellipsable-text>{{ category.name }}</dev-ice-ellipsable-text>
+        </td>
         <td class="text-center">
           <button
             pButton

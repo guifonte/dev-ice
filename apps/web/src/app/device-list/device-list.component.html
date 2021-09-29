@@ -7,7 +7,6 @@
     [value]="devices"
     responsiveLayout="stack"
     breakpoint="576px"
-    class="w-full"
     styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
   >
     <ng-template pTemplate="caption"> Device List </ng-template>
@@ -32,7 +31,7 @@
           <span class="p-column-title">Color<span class="mr-2"></span> </span>
           <dev-ice-ellipsable-text>{{ device.color }}</dev-ice-ellipsable-text>
         </td>
-        <td>
+        <td class="overflow-auto">
           <span class="p-column-title">Category<span class="mr-2"></span></span
           ><dev-ice-ellipsable-text>{{
             device.category.name

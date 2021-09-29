@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dev-ice-ellipsable-text',
-  template: ` <div myorgIsEllipsis class="text-el">
+  template: `<div devIceIsEllipsis class="text-el">
     <ng-content></ng-content>
   </div>`,
   styles: [
